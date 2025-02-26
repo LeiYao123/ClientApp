@@ -1,8 +1,8 @@
 package com.quick.app.feature.splash
 
-import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -25,7 +24,10 @@ import com.quick.app.ui.theme.ClientAppTheme
 
 
 @Composable
-fun SplashRoute(modifier: Modifier = Modifier) {
+fun SplashRoute(
+    modifier: Modifier = Modifier,
+    navigate: (routeName: String) -> Unit = {},
+) {
     Box(modifier = modifier.fillMaxSize()) {
         Image(
             modifier = Modifier
@@ -51,7 +53,8 @@ fun SplashRoute(modifier: Modifier = Modifier) {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .width(200.dp)
-                .padding(bottom = 20.dp),
+                .padding(bottom = 20.dp)
+                .clickable { navigate("guide") },
         )
     }
 }
