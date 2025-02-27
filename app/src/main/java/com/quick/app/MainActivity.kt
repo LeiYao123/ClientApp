@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.quick.app.route.IndexRoute
 import com.quick.app.ui.theme.ClientAppTheme
@@ -29,3 +30,17 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+@Composable
+fun PreviewContent(content: @Composable () -> Unit = {}) {
+    ClientAppTheme {
+        Scaffold(modifier = Modifier.fillMaxSize()) {
+            println(it)
+            if (content != {}) {
+                content()
+            } else {
+                IndexRoute()
+            }
+        }
+    }
+}

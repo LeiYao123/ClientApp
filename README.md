@@ -33,4 +33,15 @@
         delay(1000)
         // 执行逻辑，在 while 里面相当于开启一个死循环
     }
+   
+    // 或者协程实现 倒计时
+    private var countdownJob: Job? = null
+    fun startCountDown() {
+        countdownJob = viewModelScope.launch {
+            repeat(10) {
+                delay(1000)
+            }
+        }
+    }
+    // 取消倒计时，取消协程任务 
     ```
