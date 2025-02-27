@@ -28,7 +28,7 @@ fun GuideScreen() {
         contentAlignment = Alignment.Center
     ) {
         Column {
-            Text("Guide")
+            Text("Guide -- $args")
             Button(onClick = {
                 navController.popBackStack()
             }) {
