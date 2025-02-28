@@ -10,6 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.quick.app.route.AppRoute
 import com.quick.app.ui.theme.ClientAppTheme
 
@@ -23,10 +24,14 @@ class MainActivity : ComponentActivity() {
 //        )
         setContent {
             ClientAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) {
-                    Surface(modifier = Modifier.padding(it)) {
-                        AppRoute()
-                    }
+                Scaffold(
+                    modifier = Modifier.fillMaxSize(),
+                    containerColor = Color.White,
+                ) {
+                    Surface(
+                        modifier = Modifier.padding(it),
+                        color = Color.White,
+                    ) { AppRoute() }
                 }
             }
         }
@@ -34,13 +39,18 @@ class MainActivity : ComponentActivity() {
 }
 
 
-
 // 预览函数模板
 @Composable
 fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)? = null) {
     ClientAppTheme {
-        Scaffold(modifier = Modifier.fillMaxSize()) {
-            Surface(modifier = Modifier.padding(it)) {
+        Scaffold(
+            modifier = Modifier.fillMaxSize(),
+            containerColor = Color.White,
+        ) {
+            Surface(
+                modifier = Modifier.padding(it),
+                color = Color.White,
+            ) {
                 content ?: AppRoute(routeName)
             }
         }
