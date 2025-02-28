@@ -1,4 +1,4 @@
-package com.quick.app.feature.splash
+package com.quick.app.pages.splash
 
 import android.util.Log
 import androidx.compose.foundation.Image
@@ -49,8 +49,8 @@ fun SplashRoute(
     val tl by viewModel.timeLeft.collectAsState()
 
 
-    fun toNextPage(id: String) {
-        controller.navigate(PageRoutes.GuideParams(id).route)
+    fun toNextPage() {
+        controller.navigate(PageRoutes.Index.route)
         viewModel.stopCountDown()
     }
 
@@ -79,7 +79,7 @@ fun SplashRoute(
                 .padding(end = 10.dp),
             colors = ButtonDefaults.buttonColors().copy(containerColor = Color.Red),
             contentPadding = PaddingValues(0.dp),
-            onClick = { toNextPage("123456") }
+            onClick = { toNextPage() }
         ) { Text("${tl}s") }
         Image(
             modifier = Modifier
@@ -103,10 +103,7 @@ fun SplashRoute(
     }
 
     if (tl == 0) {
-        Log.d("Route", "navigate 跳转")
-        LaunchedEffect(Unit) {
-            toNextPage("3456789")
-        }
+        LaunchedEffect(Unit) { toNextPage() }
     }
 
     DisposableEffect(Unit) {

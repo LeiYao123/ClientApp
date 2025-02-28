@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.quick.app.route.IndexRoute
+import com.quick.app.route.AppRoute
 import com.quick.app.ui.theme.ClientAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,7 +25,7 @@ class MainActivity : ComponentActivity() {
             ClientAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
                     Surface(modifier = Modifier.padding(it)) {
-                        IndexRoute()
+                        AppRoute()
                     }
                 }
             }
@@ -41,7 +41,7 @@ fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)?
     ClientAppTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) {
             Surface(modifier = Modifier.padding(it)) {
-                content ?: IndexRoute(routeName)
+                content ?: AppRoute(routeName)
             }
         }
     }

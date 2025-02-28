@@ -1,4 +1,4 @@
-package com.quick.app.feature.guide
+package com.quick.app.pages.guide
 
 import android.util.Log
 import androidx.compose.foundation.layout.Box
@@ -40,11 +40,7 @@ fun GuideScreen() {
 }
 
 
-@Preview(
-    showBackground = true,
-    showSystemUi = true,
-    device = Devices.PHONE,
-)
+@Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun GuideRoutePreview() {
     PreviewContent("guide/123")

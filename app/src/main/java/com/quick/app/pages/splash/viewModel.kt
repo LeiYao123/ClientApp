@@ -1,4 +1,4 @@
-package com.quick.app.feature.splash
+package com.quick.app.pages.splash
 
 import android.os.CountDownTimer
 import android.util.Log
