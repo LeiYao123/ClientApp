@@ -5,7 +5,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.quick.app.route.IndexRoute
@@ -22,8 +24,9 @@ class MainActivity : ComponentActivity() {
         setContent {
             ClientAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
-                    println(it)
-                    IndexRoute()
+                    Surface(modifier = Modifier.padding(it)) {
+                        IndexRoute()
+                    }
                 }
             }
         }
@@ -37,8 +40,9 @@ class MainActivity : ComponentActivity() {
 fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)? = null) {
     ClientAppTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) {
-            println(it)
-            content ?: IndexRoute(routeName)
+            Surface(modifier = Modifier.padding(it)) {
+                content ?: IndexRoute(routeName)
+            }
         }
     }
 }

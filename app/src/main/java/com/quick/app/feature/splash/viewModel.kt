@@ -29,9 +29,14 @@ class SplashViewModel: ViewModel() {
         }.start()
     }
 
+    fun stopCountDown() {
+        timer?.cancel()
+    }
+
 
     override fun onCleared() {
         super.onCleared()
-        timer?.cancel()
+        stopCountDown()
+        Log.d("Route", "Splash--ViewModel onCleared")
     }
 }
