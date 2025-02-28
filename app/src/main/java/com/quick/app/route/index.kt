@@ -16,12 +16,12 @@ val LocalNavController = staticCompositionLocalOf<NavHostController> {
     error("No NavController  provided!")
 }
 @Composable
-fun IndexRoute() {
+fun IndexRoute(routeName: String? = null) {
     val navController = rememberNavController()
 
     CompositionLocalProvider(LocalNavController provides navController) {
-        NavHost(navController = navController, startDestination = "splash") {
-            Log.d("Route", "composable")
+        NavHost(navController = navController, startDestination = routeName ?: "splash") {
+            Log.d("Route", "route --> composable")
             composable(PageRoutes.Splash.route) { SplashRoute() }
             composable(PageRoutes.Guide.route) { GuideRoute() }
         }

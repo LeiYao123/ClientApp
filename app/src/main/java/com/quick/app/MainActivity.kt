@@ -31,16 +31,14 @@ class MainActivity : ComponentActivity() {
 }
 
 
+
+// 预览函数模板
 @Composable
-fun PreviewContent(content: @Composable () -> Unit = {}) {
+fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)? = null) {
     ClientAppTheme {
         Scaffold(modifier = Modifier.fillMaxSize()) {
             println(it)
-            if (content != {}) {
-                content()
-            } else {
-                IndexRoute()
-            }
+            content ?: IndexRoute(routeName)
         }
     }
 }

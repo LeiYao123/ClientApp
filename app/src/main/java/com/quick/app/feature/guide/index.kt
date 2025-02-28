@@ -47,5 +47,5 @@ fun GuideScreen() {
 )
 @Composable
 fun GuideRoutePreview() {
-    PreviewContent()
+    PreviewContent("guide/123")
 }
