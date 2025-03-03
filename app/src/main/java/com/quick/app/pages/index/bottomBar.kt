@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.AddShoppingCart
@@ -35,10 +36,11 @@ fun BottomBar(
 ) {
     Surface(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .navigationBarsPadding(),
         color = Color.White,
         tonalElevation = 6.dp,
-        shadowElevation = 6.dp,
+        shadowElevation = 0.dp,
     ) {
         Row(
             modifier = Modifier

@@ -4,12 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.quick.app.route.AppRoute
 import com.quick.app.ui.theme.ClientAppTheme
@@ -24,15 +20,7 @@ class MainActivity : ComponentActivity() {
 //        )
         setContent {
             ClientAppTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize(),
-                    containerColor = Color.White,
-                ) {
-                    Surface(
-                        modifier = Modifier.padding(it),
-                        color = Color.White,
-                    ) { AppRoute() }
-                }
+                Surface(color = Color.White) { AppRoute() }
             }
         }
     }
@@ -43,16 +31,8 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)? = null) {
     ClientAppTheme {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            containerColor = Color.White,
-        ) {
-            Surface(
-                modifier = Modifier.padding(it),
-                color = Color.White,
-            ) {
-                content ?: AppRoute(routeName)
-            }
+        Surface(color = Color.White) {
+            content ?: AppRoute(routeName)
         }
     }
 }

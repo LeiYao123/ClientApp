@@ -11,6 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.quick.app.PreviewContent
@@ -37,6 +38,7 @@ fun IndexScreen() {
         HorizontalPager(
             state = pagerState,
             userScrollEnabled = false,
+            verticalAlignment = Alignment.Top,
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
