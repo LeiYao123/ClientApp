@@ -16,6 +16,7 @@ import androidx.compose.material.icons.outlined.Inbox
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.VideoStable
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.quick.app.route.PageRoutes
+import com.quick.app.ui.theme.RuTheme
 
 
 @Composable
@@ -38,7 +40,7 @@ fun BottomBar(
         modifier = modifier
             .fillMaxWidth()
             .navigationBarsPadding(),
-        color = Color.White,
+        color = RuTheme.colors.bgWhite,
         tonalElevation = 6.dp,
         shadowElevation = 0.dp,
     ) {
@@ -49,12 +51,18 @@ fun BottomBar(
             horizontalArrangement = Arrangement.SpaceAround,
         ) {
             BottomBarItem.entries.forEachIndexed { idx, item ->
-                val color = if (currItem == item.route) Color.Red else Color.Black
+                val color =
+                    if (currItem == item.route) Color.Red else MaterialTheme.colorScheme.onSurface
                 Column(
                     horizontalAlignment = Alignment.CenterHorizontally,
-                    modifier = Modifier.clickable { onChangeItem(item.route, idx) }
+                    modifier = Modifier
+                        .clickable { onChangeItem(item.route, idx) }
                 ) {
-                    Icon(imageVector = item.icon, contentDescription = item.desc, tint = color)
+                    Icon(
+                        imageVector = item.icon,
+                        contentDescription = item.desc,
+                        tint = color,
+                    )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(text = item.desc, fontSize = 12.sp, color = color)
                 }

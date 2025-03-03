@@ -8,7 +8,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.quick.app.route.AppRoute
-import com.quick.app.ui.theme.ClientAppTheme
+import com.quick.app.ui.theme.RuTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,8 +19,8 @@ class MainActivity : ComponentActivity() {
 //            statusBarStyle = SystemBarStyle.dark(android.graphics.Color.TRANSPARENT)
 //        )
         setContent {
-            ClientAppTheme {
-                Surface(color = Color.White) { AppRoute() }
+            RuTheme {
+                Surface(color = RuTheme.colors.bgWhite) { AppRoute() }
             }
         }
     }
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 // 预览函数模板
 @Composable
 fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)? = null) {
-    ClientAppTheme {
+    RuTheme {
         Surface(color = Color.White) {
             content ?: AppRoute(routeName)
         }
