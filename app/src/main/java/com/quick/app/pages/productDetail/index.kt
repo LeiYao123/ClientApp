@@ -79,7 +79,6 @@ fun CircleButton(icon: ImageVector, onClick: () -> Unit) {
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .size(40.dp)
-            .clip(RoundedCornerShape(8.dp))
             .clip(CircleShape)
             .background(Color.Black.copy(alpha = 0.2f))
             .clickable { onClick() }
