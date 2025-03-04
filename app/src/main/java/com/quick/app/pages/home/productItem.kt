@@ -73,7 +73,7 @@ fun ProductItem(data: ProductModel, modifier: Modifier = Modifier) {
             Spacer(modifier = Modifier.size(4.dp))
             Text(
                 text = "会员价：￥${data.memberPrice}",
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.primary
             )
         }
     }

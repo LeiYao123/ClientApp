@@ -1,5 +1,17 @@
 package com.quick.app.models
 
+data class ProductListModel<T>(
+    val pagination: Pagination? = null,
+    val list: List<T> = emptyList(),
+)
+
+data class Pagination(
+    val total: Int = 0,
+    val pages: Int = 0,
+    val size: Int = 0,
+    val page: Int = 0,
+)
+
 data class ProductModel(
     val id: String,
     val title: String,
@@ -26,3 +38,6 @@ data class ProductModel(
     val salesCount: Int = 0,
     val stockCount: Long = 0,
 )
+
+
+

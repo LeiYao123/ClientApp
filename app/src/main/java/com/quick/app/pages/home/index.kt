@@ -21,11 +21,14 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun HomeRoute() {
@@ -34,6 +37,8 @@ fun HomeRoute() {
 
 @Composable
 fun HomeScreen() {
+    val vm = viewModel<HomeViewModel>()
+    val datum by vm.datum.collectAsState()
     Scaffold(topBar = { MyAppBar() }) {
         LazyColumn(
             // 也可以利用 contentWindowInsets 进行排除
@@ -41,8 +46,8 @@ fun HomeScreen() {
             verticalArrangement = Arrangement.spacedBy(8.dp),
             contentPadding = PaddingValues(horizontal = 8.dp)
         ) {
-            items(20) {
-                ProductItem(MOCK_DATA)
+            items(datum.size) { idx ->
+                ProductItem(data = datum[idx])
             }
         }
     }
