@@ -1,6 +1,5 @@
 package com.quick.app.pages.home
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -22,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.quick.app.R
 import com.quick.app.models.ProductModel
 
@@ -34,8 +34,10 @@ fun ProductItem(data: ProductModel, modifier: Modifier = Modifier) {
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(6.dp)
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),
+        AsyncImage(
+            model = data.icon,
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            error = painterResource(R.drawable.ic_launcher_foreground),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
