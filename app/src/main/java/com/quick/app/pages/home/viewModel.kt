@@ -18,7 +18,6 @@ class HomeViewModel : ViewModel() {
             try {
                 val res = HomeApi.getProducts()
                 _datum.value = res.data?.list ?: emptyList()
-
             } catch (e: Exception) {
                 Log.e("response", e.toString())
             }

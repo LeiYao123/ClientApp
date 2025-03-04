@@ -25,6 +25,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -33,7 +35,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
+import com.quick.app.models.ProductModel
 import com.quick.app.route.LocalNavController
 
 @Composable
@@ -43,6 +47,8 @@ fun ProductDetailRoute() {
 
 @Composable
 fun ProductDetailScreen() {
+    val vm: DetailViewModel = viewModel()
+    val uiState by vm.uiState.collectAsState()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -50,7 +56,13 @@ fun ProductDetailScreen() {
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
             TopBar()
-            Column(modifier = Modifier.weight(1f)) { ContentView() }
+            Column(modifier = Modifier.weight(1f)) {
+                when (uiState) {
+                    is DetailUiState.Loading -> Text("loading...")
+                    is DetailUiState.Success -> ContentView((uiState as DetailUiState.Success).data)
+                    is DetailUiState.Error -> Text((uiState as DetailUiState.Error).error.toString())
+                }
+            }
             BottomBar(onAddCart = { }, onBuy = { })
         }
     }
@@ -94,8 +106,8 @@ fun CircleButton(icon: ImageVector, onClick: () -> Unit) {
 }
 
 @Composable
-fun ContentView() {
-    Text("product detail --")
+fun ContentView(data: ProductModel) {
+    Text("${data.title} --> ${data.id}")
 }
 
 @Composable
