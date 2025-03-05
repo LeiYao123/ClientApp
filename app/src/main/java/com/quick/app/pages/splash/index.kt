@@ -26,11 +26,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
@@ -124,11 +121,4 @@ fun CopyRight() {
         textAlign = TextAlign.Center,
         modifier = Modifier.padding(bottom = 70.dp)
     )
-}
-
-
-@Preview(showBackground = true, showSystemUi = true, device = Devices.PHONE)
-@Composable
-fun SplashRoutePreview() {
-    PreviewContent()
 }

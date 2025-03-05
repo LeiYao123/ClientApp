@@ -1,7 +1,6 @@
 package com.quick.app.pages.home
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,23 +22,18 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.models.ProductModel
-import com.quick.app.route.LocalNavController
-import com.quick.app.route.PageRoutes
 
 @Composable
 fun ProductItem(data: ProductModel, modifier: Modifier = Modifier) {
-    val navController = LocalNavController.current
     Row(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(5.dp))
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(6.dp)
-            .clickable {
-                navController.navigate(PageRoutes.DetailParams(data.id).route)
-            }
     ) {
         AsyncImage(
             model = data.icon,
@@ -119,7 +113,7 @@ val MOCK_DATA = ProductModel(
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun ProductItemPreview() {
-    ProductItem(
-        data = MOCK_DATA,
-    )
+    PreviewContent(null) {
+        ProductItem(data = MOCK_DATA)
+    }
 }

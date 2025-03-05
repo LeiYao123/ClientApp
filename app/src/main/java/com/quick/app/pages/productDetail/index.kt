@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
+import com.quick.app.components.Loading
 import com.quick.app.pages.productDetail.comps.BottomBar
 import com.quick.app.pages.productDetail.comps.ContentView
 import com.quick.app.pages.productDetail.comps.TopBar
@@ -35,7 +36,7 @@ fun ProductDetailScreen() {
             TopBar()
             Column(modifier = Modifier.weight(1f)) {
                 when (uiState) {
-                    is DetailUiState.Loading -> Text("loading...")
+                    is DetailUiState.Loading -> Loading()
                     is DetailUiState.Success -> ContentView((uiState as DetailUiState.Success).data)
                     is DetailUiState.Error -> Text((uiState as DetailUiState.Error).error.toString())
                 }

@@ -31,8 +31,10 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun PreviewContent(routeName: String? = null, content: (@Composable () -> Unit)? = null) {
     RuTheme {
-        Surface(color = Color.White) {
-            content ?: AppRoute(routeName)
-        }
+        val color = Color.White
+        if (routeName != null)
+            Surface { AppRoute(routeName) }
+        else
+            Surface(color = color, content = content ?: {})
     }
 }

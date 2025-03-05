@@ -29,6 +29,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.quick.app.PreviewContent
+import com.quick.app.route.LocalNavController
+import com.quick.app.route.PageRoutes
 
 @Composable
 fun HomeRoute() {
@@ -37,6 +40,7 @@ fun HomeRoute() {
 
 @Composable
 fun HomeScreen() {
+    val navController = LocalNavController.current
     val vm = viewModel<HomeViewModel>()
     val datum by vm.datum.collectAsState()
     Scaffold(topBar = { MyAppBar() }) {
@@ -47,7 +51,9 @@ fun HomeScreen() {
             contentPadding = PaddingValues(horizontal = 8.dp)
         ) {
             items(datum.size) { idx ->
-                ProductItem(data = datum[idx])
+                ProductItem(data = datum[idx], modifier = Modifier.clickable {
+                    navController.navigate(PageRoutes.DetailParams(datum[idx].id).route)
+                })
             }
         }
     }
@@ -90,5 +96,5 @@ private fun MyAppBar() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun HomeRoutePreview() {
-    HomeRoute()
+    PreviewContent("index")
 }
