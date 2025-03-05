@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
+    kotlin("kapt") // 增加这一行 下面 dependencies 的 kapt 才会生效
 }
 
 android {
@@ -104,4 +107,12 @@ dependencies {
     implementation("com.github.chuckerteam.chucker:library:4.1.0")
 //    通过在应用中利用变量控制因为 demo 环境也需要看到日志
 //    releaseImplementation("com.github.chuckerteam.chucker:library-no-op:4.1.0")
+
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+}
+
+// Allow references to generated code
+kapt {
+    correctErrorTypes = true
 }
