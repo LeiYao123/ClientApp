@@ -91,7 +91,7 @@ fun ProductItem(data: ProductModel, modifier: Modifier = Modifier) {
 
 val MOCK_DATA = ProductModel(
     id = "1",
-    title = "测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品测试商品",
+    title = "测试商",
     price = 100,
     originPrice = 200,
     icon = "https://www.baidu.com/img/bd_logo1.png",
