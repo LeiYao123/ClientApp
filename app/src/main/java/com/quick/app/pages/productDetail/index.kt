@@ -2,9 +2,10 @@ package com.quick.app.pages.productDetail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -27,23 +28,34 @@ fun ProductDetailRoute() {
 fun ProductDetailScreen() {
     val vm: DetailViewModel = viewModel()
     val uiState by vm.uiState.collectAsState()
-    Box(
+    val scrollState = rememberScrollState()
+
+    Column(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .navigationBarsPadding()
     ) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            TopBar()
-            Column(modifier = Modifier.weight(1f)) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .verticalScroll(scrollState)
+            ) {
                 when (uiState) {
                     is DetailUiState.Loading -> Loading()
                     is DetailUiState.Success -> ContentView((uiState as DetailUiState.Success).data)
                     is DetailUiState.Error -> Text((uiState as DetailUiState.Error).error.toString())
                 }
             }
-            BottomBar(onAddCart = { }, onBuy = { })
+            TopBar()
         }
+        BottomBar(onAddCart = { }, onBuy = { })
     }
+
 }
 
 

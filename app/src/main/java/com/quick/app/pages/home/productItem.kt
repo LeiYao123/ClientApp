@@ -85,7 +85,7 @@ fun ProductItem(data: ProductModel, modifier: Modifier = Modifier) {
 
 val MOCK_DATA = ProductModel(
     id = "1",
-    title = "测试商",
+    title = "傻厨电煎锅多功能家用不粘锅电饼铛一体锅烙饼锅电烤锅烤肉电烤锅傻厨电煎锅多功能家用不粘锅电饼铛一体锅烙饼锅电烤锅烤肉电烤锅",
     price = 100,
     originPrice = 200,
     icon = "https://www.baidu.com/img/bd_logo1.png",
@@ -96,17 +96,17 @@ val MOCK_DATA = ProductModel(
     category2Id = "2",
     category3Id = "3",
     memberPrice = 100,
-    highlight = "测试",
-    detail = "测试",
+    highlight = "粘不粘锅",
+    detail = "<img src=\"https://img.alicdn.com/imgextra/i2/37617748/TB25A4MwMxlpuFjSszbXXcSVpXa_!!37617748.jpg\"/><img src=\"https://img.alicdn.com/imgextra/i1/37617748/TB2NlvkwMxlpuFjy0FoXXa.lXXa_!!37617748.jpg\"/><img src=\"https://img.alicdn.com/imgextra/i2/37617748/TB23UhVwHXlpuFjy1zbXXb_qpXa_!!37617748.jpg\"/>",
     sale = 100.toByte(),
     deleted = 0.toByte(),
-    hot = 0.toByte(),
-    news = 0.toByte(),
+    hot = 10.toByte(),
+    news = 20.toByte(),
     recommend = 0.toByte(),
-    commentsRate = 0.0f,
-    commentsCount = 0,
-    salesCount = 0,
-    stockCount = 0,
+    commentsRate = 99.99f,
+    commentsCount = 10086,
+    salesCount = 10010,
+    stockCount = 100001,
 )
 
 
