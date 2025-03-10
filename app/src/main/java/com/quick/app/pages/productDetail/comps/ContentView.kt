@@ -1,6 +1,9 @@
 package com.quick.app.pages.productDetail.comps
 
+import android.util.Log
+import android.webkit.WebSettings
 import android.webkit.WebView
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -41,6 +44,8 @@ import com.quick.app.pages.home.MOCK_DATA
 
 @Composable
 fun ContentView(data: ProductModel) {
+
+
     Column(modifier = Modifier.fillMaxWidth()) {
         ProductBanner(data.icons)
         ProductInfo(data)
@@ -54,7 +59,21 @@ fun ContentView(data: ProductModel) {
 
 
 @Composable
-fun ProductBanner(icons: List<String> = emptyList()) {
+fun ProductBanner(icons: List<String>? = emptyList()) {
+    if (icons == null) {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.BottomCenter,
+        ) {
+            Image(
+                painter = painterResource(R.drawable.ic_launcher_background),
+                modifier = Modifier.fillMaxSize(),
+                contentScale = ContentScale.FillBounds,
+                contentDescription = null
+            )
+        }
+        return
+    }
     val pageState = rememberPagerState(pageCount = { icons.size })
     Box(
         modifier = Modifier
@@ -169,11 +188,14 @@ fun ProductSettingItem(title: String, value: String, onClick: () -> Unit) {
 
 @Composable
 fun HtmlWebView(htmlContent: String) {
+    Log.d("ttt", htmlContent)
     AndroidView(
         factory = { context ->
             WebView(context).apply {
                 settings.apply {
                     loadsImagesAutomatically = true // 自动加载图片
+                    // 允许加载 HTTP 资源
+                    settings.mixedContentMode = WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
                 }
                 loadDataWithBaseURL(null, wrapHtml(htmlContent), "text/html", "utf-8", null)
             }
@@ -194,6 +216,7 @@ fun wrapHtml(content: String): String {
         </head>
         <body>
             $content
+        </body>
         </body>
         </html>
     """.trimIndent()
