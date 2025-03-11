@@ -13,6 +13,7 @@ import com.quick.app.pages.guide.GuideRoute
 import com.quick.app.pages.home.HomeRoute
 import com.quick.app.pages.index.IndexRoute
 import com.quick.app.pages.login.LoginRoute
+import com.quick.app.pages.loginAccount.LoginAccountRoute
 import com.quick.app.pages.me.MeRoute
 import com.quick.app.pages.productDetail.ProductDetailRoute
 import com.quick.app.pages.splash.SplashRoute
@@ -40,6 +41,7 @@ fun AppRoute(routeName: String? = null) {
             composable(PageRoutes.Cart.route) { CategoryRoute() }
             composable(PageRoutes.Me.route) { MeRoute() }
             composable(PageRoutes.Login.route) { LoginRoute() }
+            composable(PageRoutes.LoginAccount.route) { LoginAccountRoute() }
         }
     }
 }
@@ -62,4 +64,5 @@ sealed class PageRoutes(val route: String) {
     data object Me : PageRoutes("me")
 
     data object Login : PageRoutes("login")
+    data object LoginAccount : PageRoutes("login/account")
 }
