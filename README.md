@@ -12,3 +12,8 @@
 3.
 
 ### 单个[技术点实现](./summary)
+
+1. activity
+   级别的全局状态共享 https://yuanbao.tencent.com/bot/app/share/chat/1f65a9e4eac6adf9beba6fecf2be46b7
+2. 导航级别共用 viewModel，比如：list ->
+   detail https://yuanbao.tencent.com/bot/app/share/chat/1d8a7800ccbfe3e617648fcff4e7b772

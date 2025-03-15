@@ -1,6 +1,5 @@
 package com.quick.app.route
 
-import android.util.Log
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -24,13 +23,12 @@ val LocalNavController = staticCompositionLocalOf<NavHostController> {
     error("No NavController  provided!")
 }
 
+
 @Composable
 fun AppRoute(routeName: String? = null) {
     val navController = rememberNavController()
-
     CompositionLocalProvider(LocalNavController provides navController) {
-        NavHost(navController = navController, startDestination = routeName ?: "index") {
-            Log.d("Route", "route --> composable")
+        NavHost(navController = navController, startDestination = routeName ?: "index/home") {
             composable(PageRoutes.Splash.route) { SplashRoute() }
             composable(PageRoutes.Guide.route) { GuideRoute() }
             composable(PageRoutes.Index.route) { IndexRoute() }
@@ -50,18 +48,18 @@ fun AppRoute(routeName: String? = null) {
 sealed class PageRoutes(val route: String) {
     data object Splash : PageRoutes("splash")
     data object Guide : PageRoutes("guide/{id}")
-    data object Index : PageRoutes("index")
+
+    data object Index : PageRoutes("index/{page}")
+    class IndexParams(page: String) : PageRoutes("index/$page")
+
     data object Home : PageRoutes("home")
-
-    data object Detail : PageRoutes("detail/{id}")
-
-    // navigate 方法跳转时带参数
-    class DetailParams(id: String) : PageRoutes("detail/$id")
-
     data object Video : PageRoutes("video")
     data object Category : PageRoutes("category")
     data object Cart : PageRoutes("cart")
     data object Me : PageRoutes("me")
+
+    data object Detail : PageRoutes("detail/{id}")
+    class DetailParams(id: String) : PageRoutes("detail/$id")
 
     data object Login : PageRoutes("login")
     data object LoginAccount : PageRoutes("login/account")

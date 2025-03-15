@@ -7,6 +7,13 @@ data class LoginParams(
     val password: String,
 )
 
+data class Session(
+    val userId: String,
+    val session: String,
+    val chatToken: String,
+    val user: User,
+)
+
 data class User(
     val id: String? = null,
     val nickname: String? = null,
@@ -33,19 +40,4 @@ data class User(
     val pinyin: String? = null,
     val pinyinFirst: String? = null,
     val first: String? = null,
-
-    //endregion
-
-    //region 第三方登录
-    val token: String? = null,
-    val refeshToken: String? = null,
-    val openid: String? = null,
-    val expiresIn: Long? = null,
-
-    /**
-     * 第三方登录
-     * 1:微信登录；10：qq登录
-     */
-    val style: Int? = null,
-//endregion
 )

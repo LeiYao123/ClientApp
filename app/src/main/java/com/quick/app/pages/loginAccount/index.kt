@@ -14,6 +14,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +24,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.RuTopAppBar
 import com.quick.app.route.LocalNavController
+import com.quick.app.route.PageRoutes
 
 @Composable
 fun LoginAccountRoute() {
@@ -31,6 +34,13 @@ fun LoginAccountRoute() {
 @Composable
 fun LoginAccountScreen(vm: LoginAccountViewModel = viewModel()) {
     val navController = LocalNavController.current
+    val uiState by vm.uiState
+
+
+    LaunchedEffect(uiState) {
+        if (uiState is LoginUiState.Success)
+            navController.navigate(PageRoutes.IndexParams(PageRoutes.Me.route).route)
+    }
 
 
     Scaffold(topBar = { RuTopAppBar("登录", true) }) { paddingValues ->

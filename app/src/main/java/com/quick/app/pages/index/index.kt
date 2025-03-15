@@ -20,6 +20,7 @@ import com.quick.app.pages.category.CategoryRoute
 import com.quick.app.pages.home.HomeRoute
 import com.quick.app.pages.me.MeRoute
 import com.quick.app.pages.video.VideoRoute
+import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
 import kotlinx.coroutines.launch
 
@@ -28,11 +29,23 @@ fun IndexRoute() {
     IndexScreen()
 }
 
+val pagesArr = listOf(
+    PageRoutes.Home.route,
+    PageRoutes.Video.route,
+    PageRoutes.Category.route,
+    PageRoutes.Cart.route,
+    PageRoutes.Me.route
+)
+
 @Composable
 fun IndexScreen() {
+    val navController = LocalNavController.current
+    val pageRoute = navController.currentBackStackEntry?.arguments?.getString("page")
     val scope = rememberCoroutineScope()
-    var currTab: String by remember { mutableStateOf(PageRoutes.Home.route) }
-    val pagerState = rememberPagerState(pageCount = { BottomBarItem.entries.size })
+    var currTab: String by remember { mutableStateOf(pageRoute ?: PageRoutes.Home.route) }
+    val pageIndex = pagesArr.indexOf(currTab)
+    val pagerState =
+        rememberPagerState(initialPage = pageIndex, pageCount = { BottomBarItem.entries.size })
 
     Column(modifier = Modifier.fillMaxSize()) {
         HorizontalPager(

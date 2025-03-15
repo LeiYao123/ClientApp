@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
@@ -37,9 +36,12 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.quick.app.LocalViewModel
 import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.components.RuTopAppBar
+import com.quick.app.pages.me.MeViewModel
 import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
 
@@ -48,9 +50,11 @@ fun LoginRoute() {
     LoginScreen()
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginScreen() {
+    val vm = viewModel<MeViewModel>()
+    val appVm = LocalViewModel.current
+
     val navController = LocalNavController.current
     Scaffold(topBar = { RuTopAppBar(toBack = true) }) {
         Box(
@@ -73,6 +77,9 @@ fun LoginScreen() {
                     .padding(bottom = 32.dp)
                     .align(BottomCenter)
             ) {
+
+                Text("me page Cart， ${vm.num.intValue}")
+                Text("app Cart， ${appVm.appNum.intValue}")
                 Button(
                     modifier = Modifier
                         .fillMaxWidth()
