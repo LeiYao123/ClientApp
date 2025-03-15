@@ -52,7 +52,7 @@ fun HomeScreen() {
         ) {
             items(datum.size) { idx ->
                 ProductItem(data = datum[idx], modifier = Modifier.clickable {
-                    navController.navigate(PageRoutes.DetailParams(datum[idx].id).route)
+                    navController.navigate(PageRoutes.Detail.routeParam(datum[idx].id))
                 })
             }
         }

@@ -39,7 +39,7 @@ fun LoginAccountScreen(vm: LoginAccountViewModel = viewModel()) {
 
     LaunchedEffect(uiState) {
         if (uiState is LoginUiState.Success)
-            navController.navigate(PageRoutes.IndexParams(PageRoutes.Me.route).route)
+            navController.navigate(PageRoutes.Index.routeParam(PageRoutes.Me.route))
     }
 
 
