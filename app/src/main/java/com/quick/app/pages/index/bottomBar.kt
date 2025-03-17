@@ -10,9 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.AddShoppingCart
 import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Inbox
 import androidx.compose.material.icons.outlined.PersonOutline
 import androidx.compose.material.icons.outlined.VideoStable
 import androidx.compose.material3.Icon
@@ -86,16 +84,6 @@ enum class BottomBarItem(
         icon = Icons.Outlined.VideoStable,
         desc = "Video",
         route = PageRoutes.Video.route,
-    ),
-    Category(
-        icon = Icons.Outlined.Inbox,
-        desc = "Category",
-        route = PageRoutes.Category.route,
-    ),
-    Cart(
-        icon = Icons.Outlined.AddShoppingCart,
-        desc = "Cart",
-        route = PageRoutes.Cart.route,
     ),
     Me(
         icon = Icons.Outlined.PersonOutline,

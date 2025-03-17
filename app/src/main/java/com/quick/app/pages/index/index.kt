@@ -15,8 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.quick.app.PreviewContent
-import com.quick.app.pages.cart.CartRoute
-import com.quick.app.pages.category.CategoryRoute
 import com.quick.app.pages.home.HomeRoute
 import com.quick.app.pages.me.MeRoute
 import com.quick.app.pages.video.VideoRoute
@@ -32,8 +30,6 @@ fun IndexRoute() {
 val pagesArr = listOf(
     PageRoutes.Home.route,
     PageRoutes.Video.route,
-    PageRoutes.Category.route,
-    PageRoutes.Cart.route,
     PageRoutes.Me.route
 )
 
@@ -59,9 +55,7 @@ fun IndexScreen() {
             when (it) {
                 0 -> HomeRoute()
                 1 -> VideoRoute()
-                2 -> CategoryRoute()
-                3 -> CartRoute()
-                4 -> MeRoute()
+                2 -> MeRoute()
             }
         }
         BottomBar(currItem = currTab) { item, idx ->

@@ -1,7 +1,6 @@
 package com.quick.app.route
 
 import androidx.compose.runtime.Composable
-import com.quick.app.pages.category.CategoryRoute
 import com.quick.app.pages.guide.GuideRoute
 import com.quick.app.pages.home.HomeRoute
 import com.quick.app.pages.home.productDetail.ProductDetailRoute
@@ -23,8 +22,6 @@ enum class PageRoutes(
     Index("index/{page}", { IndexRoute() }, { "index/$it" }),
     Home("home", { HomeRoute() }),
     Video("video", { VideoRoute() }),
-    Category("category", { CategoryRoute() }),
-    Cart("cart", { CategoryRoute() }),
     Me("me", { MeRoute() }),
 
     Detail("detail/{id}", { ProductDetailRoute() }, { "detail/$it" }),

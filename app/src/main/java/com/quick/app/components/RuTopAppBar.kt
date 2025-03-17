@@ -8,6 +8,8 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarColors
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.quick.app.route.LocalNavController
@@ -17,11 +19,13 @@ import com.quick.app.route.LocalNavController
 fun RuTopAppBar(
     title: String = "",
     toBack: Boolean = false,
+    colors: TopAppBarColors = TopAppBarDefaults. centerAlignedTopAppBarColors(),
     actions: @Composable RowScope.() -> Unit = {},
 ) {
 
     CenterAlignedTopAppBar(
         title = { Text(text = title) },
+        colors = colors,
         navigationIcon = {
             if (!toBack) return@CenterAlignedTopAppBar
             val navController = LocalNavController.current
