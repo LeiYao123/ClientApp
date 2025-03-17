@@ -1,4 +1,4 @@
-package com.quick.app.pages.productDetail
+package com.quick.app.pages.home.productDetail
 
 import com.quick.app.models.ProductModel
 

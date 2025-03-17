@@ -1,4 +1,4 @@
-package com.quick.app.pages.productDetail
+package com.quick.app.pages.home.productDetail
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -33,6 +33,5 @@ class DetailViewModel(
                 _uiState.value = DetailUiState.Error(e)
             }
         }
-
     }
 }

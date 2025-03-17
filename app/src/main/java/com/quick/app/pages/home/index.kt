@@ -62,6 +62,7 @@ fun HomeScreen() {
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 private fun MyAppBar() {
+    val count = viewModel<HomeViewModel>().count
     TopAppBar(
         navigationIcon = {
             Icon(imageVector = Icons.Outlined.Menu, contentDescription = null)
@@ -80,6 +81,9 @@ private fun MyAppBar() {
             ) {
                 Icon(imageVector = Icons.Outlined.Search, contentDescription = null)
                 Text(text = "Search")
+                Text(
+                    text = "计数: ${count.intValue}",
+                    modifier = Modifier.clickable { count.intValue++ })
             }
         },
         actions = {

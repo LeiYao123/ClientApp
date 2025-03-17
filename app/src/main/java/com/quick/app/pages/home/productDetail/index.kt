@@ -1,4 +1,4 @@
-package com.quick.app.pages.productDetail
+package com.quick.app.pages.home.productDetail
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,9 +15,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.Loading
-import com.quick.app.pages.productDetail.comps.BottomBar
-import com.quick.app.pages.productDetail.comps.ContentView
-import com.quick.app.pages.productDetail.comps.TopBar
+import com.quick.app.pages.home.productDetail.comps.BottomBar
+import com.quick.app.pages.home.productDetail.comps.ContentView
+import com.quick.app.pages.home.productDetail.comps.TopBar
 
 @Composable
 fun ProductDetailRoute() {

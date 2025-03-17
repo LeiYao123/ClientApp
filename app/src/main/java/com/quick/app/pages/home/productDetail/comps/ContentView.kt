@@ -1,4 +1,4 @@
-package com.quick.app.pages.productDetail.comps
+package com.quick.app.pages.home.productDetail.comps
 
 import android.util.Log
 import android.webkit.WebSettings
@@ -27,6 +27,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,21 +37,29 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
 import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.models.ProductModel
+import com.quick.app.pages.home.HomeViewModel
 import com.quick.app.pages.home.MOCK_DATA
+import com.quick.app.route.LocalNavController
 
 @Composable
 fun ContentView(data: ProductModel) {
-
+    val navController = LocalNavController.current
+    // 共享父级 viewModel 数据
+    val parentEntry = remember { navController.getBackStackEntry("index/home") }
+    val vm: HomeViewModel = viewModel(parentEntry)
 
     Column(modifier = Modifier.fillMaxWidth()) {
         ProductBanner(data.icons)
         ProductInfo(data)
         Spacer(modifier = Modifier.height(12.dp))
-        ProductSettingItem("已选", "爱学啊", onClick = {})
+        ProductSettingItem("已选", "爱学啊 计数-->${vm.count.intValue}", onClick = {
+            vm.count.intValue++
+        })
         ProductSettingItem("送至", "四川省 成都市 高新区", onClick = {})
         ProductSettingItem("门店", "小米之家 四川省成都市印象城专卖店", onClick = {})
         HtmlWebView(data.detail ?: "")

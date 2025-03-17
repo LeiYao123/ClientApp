@@ -4,11 +4,11 @@ import androidx.compose.runtime.Composable
 import com.quick.app.pages.category.CategoryRoute
 import com.quick.app.pages.guide.GuideRoute
 import com.quick.app.pages.home.HomeRoute
+import com.quick.app.pages.home.productDetail.ProductDetailRoute
 import com.quick.app.pages.index.IndexRoute
 import com.quick.app.pages.login.LoginRoute
 import com.quick.app.pages.loginAccount.LoginAccountRoute
 import com.quick.app.pages.me.MeRoute
-import com.quick.app.pages.productDetail.ProductDetailRoute
 import com.quick.app.pages.splash.SplashRoute
 import com.quick.app.pages.video.VideoRoute
 
