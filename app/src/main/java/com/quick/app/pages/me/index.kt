@@ -67,7 +67,7 @@ fun MeScreen() {
         Column(
             verticalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
-                .padding(it)
+                .padding(top = it.calculateTopPadding())
                 .fillMaxSize()
                 .verticalScroll(scrollState)
                 .padding(bottom = 12.dp),
@@ -77,7 +77,9 @@ fun MeScreen() {
                     .background(Color.Red)
                     .padding(horizontal = 12.dp)
             ) {
-                if (isLoginIn) UserProfile(user, toLogout = { vm.logout() })
+                if (isLoginIn) UserProfile(user, toProfile = {
+                    navController.navigate(PageRoutes.Profile.route)
+                })
                 else DefaultUserProfile(toLogin = {
                     navController.navigate(PageRoutes.Login.route)
                 })

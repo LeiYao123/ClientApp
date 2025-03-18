@@ -14,8 +14,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -34,14 +32,13 @@ import com.quick.app.models.User
 
 
 @Composable
-fun UserProfile(user: User?, toLogout: () -> Unit) {
+fun UserProfile(user: User?, toProfile: () -> Unit) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { }
+            .clickable { toProfile() }
     ) {
-
         AsyncImage(
             model = user?.icon,
             error = painterResource(id = R.drawable.default_avatar),
@@ -70,12 +67,8 @@ fun UserProfile(user: User?, toLogout: () -> Unit) {
                 color = Color.White,
             )
         }
-
-
         Spacer(modifier = Modifier.width(12.dp))
-
-        Icon(Icons.Default.ExitToApp, contentDescription = null, tint = Color.White)
-        Text("退出", color = Color.White, modifier = Modifier.clickable { toLogout() })
+        ArrowIcon(tint = Color.White)
     }
 }
 
@@ -96,9 +89,7 @@ fun DefaultUserProfile(toLogin: () -> Unit) {
                 .clip(CircleShape)
                 .border(2.dp, MaterialTheme.colorScheme.onPrimary, CircleShape),
         )
-
         Spacer(modifier = Modifier.width(24.dp))
-
         Column(
             modifier = Modifier
                 .weight(1f),
@@ -108,16 +99,13 @@ fun DefaultUserProfile(toLogin: () -> Unit) {
                 style = MaterialTheme.typography.bodyLarge,
                 color = Color.White,
             )
-
             Spacer(modifier = Modifier.height(12.dp))
-
             Text(
                 text = "填写兴趣更懂你",
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.White,
             )
         }
-
         ArrowIcon(tint = Color.White)
     }
 }

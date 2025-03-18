@@ -15,7 +15,7 @@ class MeViewModel : ViewModel() {
         Log.d("MeViewModel", "me 我执行了")
     }
 
-    private fun getPrefsSession(): Session? {
+    fun getPrefsSession(): Session? {
         return PreferencesManager.getObject<Session>("session")
     }
 
