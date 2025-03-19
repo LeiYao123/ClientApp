@@ -24,16 +24,16 @@
         }
     }
    ```
-    3. viewModel 里面在 api 响应拿到之后 手动调用序列化方法
-        ```kotlin
-       try {
-             val res = ApiClient.homeApiService.getProducts()
-             val list = Gson().fromJson(res.data, ProductListModel::class.java)
-             val rr = res.data?.get("list")?.asJsonArray?.map { ItemModel.fromJson(it.asJsonObject) }
-             Log.d("response", rr.toString())
-        } catch (e: Exception) {
-             Log.d("response", e.toString())
-        }
-       ```
+3. viewModel 里面在 api 响应拿到之后 手动调用序列化方法
+    ```kotlin
+   try {
+         val res = ApiClient.homeApiService.getProducts()
+         val list = Gson().fromJson(res.data, ProductListModel::class.java)
+         val rr = res.data?.get("list")?.asJsonArray?.map { ItemModel.fromJson(it.asJsonObject) }
+         Log.d("response", "$list $rr")
+    } catch (e: Exception) {
+         Log.d("response", e.toString())
+    }
+   ```
 
 

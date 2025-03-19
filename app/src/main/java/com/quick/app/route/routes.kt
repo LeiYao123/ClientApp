@@ -3,7 +3,7 @@ package com.quick.app.route
 import androidx.compose.runtime.Composable
 import com.quick.app.pages.guide.GuideRoute
 import com.quick.app.pages.home.HomeRoute
-import com.quick.app.pages.home.productDetail.ProductDetailRoute
+import com.quick.app.pages.home.detail.ProductDetailRoute
 import com.quick.app.pages.index.IndexRoute
 import com.quick.app.pages.login.LoginRoute
 import com.quick.app.pages.loginAccount.LoginAccountRoute

@@ -13,7 +13,6 @@ import retrofit2.http.Query
 
 val HomeApi: HomeApiService = retrofit.create(HomeApiService::class.java)
 
-
 interface HomeApiService {
     @GET("/v1/products/page")
     suspend fun getProducts(): NetworkRes<ProductListModel<ProductModel>>

@@ -3,6 +3,7 @@ package com.quick.app.pages.home
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -29,6 +30,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
+import com.quick.app.components.ErrorTips
+import com.quick.app.components.Loading
+import com.quick.app.models.ProductModel
+import com.quick.app.pages.home.comps.ProductItem
 import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
 
@@ -42,18 +47,36 @@ fun HomeScreen() {
     val navController = LocalNavController.current
     val vm = viewModel<HomeViewModel>()
     val datum by vm.datum
+    val listUiState by vm.listUiState
     Scaffold(topBar = { MyAppBar() }) {
-        LazyColumn(
-            // 也可以利用 contentWindowInsets 进行排除
-            modifier = Modifier.padding(top = it.calculateTopPadding()),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(horizontal = 8.dp)
-        ) {
-            items(datum.size) { idx ->
-                ProductItem(data = datum[idx], modifier = Modifier.clickable {
-                    navController.navigate(PageRoutes.Detail.routeParam(datum[idx].id))
-                })
+        Box(modifier = Modifier.padding(top = it.calculateTopPadding())) {
+            when (val state = listUiState) {
+                is HomeListUiState.Loading -> Loading()
+
+                is HomeListUiState.Error -> ErrorTips(
+                    message = state.error.message ?: "加载失败",
+                    onClick = { vm.getProducts() })
+
+                is HomeListUiState.Success -> HomeList(datum) { d ->
+                    navController.navigate(
+                        PageRoutes.Detail.routeParam(d.id)
+                    )
+                }
             }
+        }
+    }
+}
+
+@Composable
+fun HomeList(datum: List<ProductModel>, onClick: (ProductModel) -> Unit) {
+    LazyColumn(
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 8.dp)
+    ) {
+        items(datum.size) { idx ->
+            ProductItem(
+                data = datum[idx],
+                modifier = Modifier.clickable { onClick(datum[idx]) })
         }
     }
 }

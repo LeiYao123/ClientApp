@@ -1,4 +1,4 @@
-package com.quick.app.pages.home.productDetail.comps
+package com.quick.app.pages.home.comps
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable

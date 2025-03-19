@@ -1,4 +1,4 @@
-package com.quick.app.pages.home.productDetail.comps
+package com.quick.app.pages.home.comps
 
 import android.util.Log
 import android.webkit.WebSettings
@@ -43,7 +43,6 @@ import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.models.ProductModel
 import com.quick.app.pages.home.HomeViewModel
-import com.quick.app.pages.home.MOCK_DATA
 import com.quick.app.route.LocalNavController
 
 @Composable
@@ -173,10 +172,9 @@ fun ProductSettingItem(title: String, value: String, onClick: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp)
+            .clickable { onClick() }
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .padding(12.dp)
-            .clickable { onClick() }
-
     ) {
         Text(
             text = title,

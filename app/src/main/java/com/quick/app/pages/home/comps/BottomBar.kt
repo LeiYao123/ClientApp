@@ -1,4 +1,4 @@
-package com.quick.app.pages.home.productDetail.comps
+package com.quick.app.pages.home.comps
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -32,6 +32,7 @@ fun BottomBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .padding(top = 8.dp)
             .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
