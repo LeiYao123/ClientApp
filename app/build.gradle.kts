@@ -21,6 +21,16 @@ android {
         }
     }
 
+    signingConfigs {
+        // release 打包签名
+        create("release") {
+            storeFile = file("../rushable_pos.jks")
+            storePassword = "rushable-pos"
+            keyAlias = "rushable-pos"
+            keyPassword = "rushable-pos"
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -28,7 +38,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -47,30 +57,6 @@ android {
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
-        }
-    }
-
-    flavorDimensions += listOf("env")
-    productFlavors {
-        create("dev") {
-            dimension = "env"
-
-            buildConfigField(
-                type = "String",
-                name = "BASE_URL",
-                // 切记这里要加 \" 进行转义
-                value = "\"https://quick-server-sp.ixuea.com\""
-            )
-        }
-
-        create("prod") {
-            dimension = "env"
-            buildConfigField(
-                type = "String",
-                name = "BASE_URL",
-                // 切记这里要加 \" 进行转义
-                value = "\"https://1234ixuea.com\""
-            )
         }
     }
 }

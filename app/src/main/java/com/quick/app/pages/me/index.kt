@@ -14,6 +14,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.RuTopAppBar
+import com.quick.app.config.EnvConfig
 import com.quick.app.pages.me.comps.CountInfo
 import com.quick.app.pages.me.comps.DefaultUserProfile
 import com.quick.app.pages.me.comps.OrderInfo
@@ -91,6 +93,8 @@ fun MeScreen() {
             OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
             OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
             OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
+            Text("环境变量--${EnvConfig.env}")
+            Text("base_url--${EnvConfig.base_url}")
         }
     }
 }
