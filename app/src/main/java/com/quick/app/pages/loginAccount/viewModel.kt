@@ -28,6 +28,11 @@ class LoginAccountViewModel : ViewModel() {
             try {
                 val res = HomeApi.login(params)
                 if (res.status != 0) {
+                    Toast.makeText(
+                        MyApplication.instance,
+                        "请求失败 ${res.message}",
+                        Toast.LENGTH_LONG
+                    ).show()
                     uiState.value = LoginUiState.Error(Throwable(res.message))
                     return@launch
                 }

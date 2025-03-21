@@ -18,7 +18,7 @@ enum class PageRoutes(
     val routeParam: ((String) -> String) = { it -> it },
 ) {
     Splash("splash", { SplashRoute() }),
-    Guide("guide/{id}", { GuideRoute() }, { "guide/$it" }),
+    Guide("guide", { GuideRoute() }),
 
     Index("index/{page}", { IndexRoute() }, { "index/$it" }),
     Home("home", { HomeRoute() }),

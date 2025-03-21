@@ -86,6 +86,7 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
+    implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
 
     implementation("com.github.chuckerteam.chucker:library:4.1.0")
 //    通过在应用中利用变量控制因为 demo 环境也需要看到日志
