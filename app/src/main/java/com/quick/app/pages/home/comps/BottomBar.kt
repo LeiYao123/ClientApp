@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BottomBar(
+    showCartIcon: Boolean = true,
     onAddCart: () -> Unit,
     onBuy: () -> Unit,
 ) {
@@ -36,14 +37,16 @@ fun BottomBar(
             .padding(horizontal = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
-            Icons.Outlined.ShoppingCart,
-            contentDescription = null,
-            modifier = Modifier.clickable {
-                println("click add cart")
-            }
-        )
-        Spacer(modifier = Modifier.width(8.dp))
+        if (showCartIcon) {
+            Icon(
+                Icons.Outlined.ShoppingCart,
+                contentDescription = null,
+                modifier = Modifier.clickable {
+                    println("click add cart")
+                }
+            )
+            Spacer(modifier = Modifier.width(8.dp))
+        }
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier

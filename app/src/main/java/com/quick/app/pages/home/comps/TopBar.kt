@@ -23,23 +23,27 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
-import com.quick.app.route.LocalNavController
 
 
 @Composable
-fun TopBar() {
-    val navController = LocalNavController.current
+fun TopBar(
+    alpha: Int = 0,
+    onBack: () -> Unit,
+    onShareText: () -> Unit,
+    onShareImage: () -> Unit,
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color(255, 255, 255, alpha))
             .statusBarsPadding()
             .padding(horizontal = 16.dp, vertical = 6.dp)
     ) {
-        CircleButton(Icons.Default.ArrowBackIosNew) { navController.popBackStack() }
+        CircleButton(Icons.Default.ArrowBackIosNew, onBack)
         Spacer(modifier = Modifier.weight(1f))
-        CircleButton(Icons.Default.Share) {}
+        CircleButton(Icons.Default.Share, onShareImage)
         Spacer(modifier = Modifier.width(8.dp))
-        CircleButton(Icons.Default.MoreVert) { }
+        CircleButton(Icons.Default.MoreVert, onShareText)
     }
 }
 

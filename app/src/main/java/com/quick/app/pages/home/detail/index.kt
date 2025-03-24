@@ -1,5 +1,7 @@
 package com.quick.app.pages.home.detail
 
+import android.content.Context
+import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,7 +11,11 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
@@ -21,6 +27,7 @@ import com.quick.app.pages.home.comps.BottomBar
 import com.quick.app.pages.home.comps.ContentView
 import com.quick.app.pages.home.comps.TopBar
 import com.quick.app.route.LocalNavController
+import kotlinx.coroutines.flow.collectLatest
 
 @Composable
 fun ProductDetailRoute() {
@@ -29,6 +36,7 @@ fun ProductDetailRoute() {
 
 @Composable
 fun ProductDetailScreen() {
+    val ctx = LocalContext.current
     val navController = LocalNavController.current
     val id = navController.currentBackStackEntry?.arguments?.getString("id") ?: ""
     val owner = navController.getBackStackEntry("index/home")
@@ -48,6 +56,13 @@ fun ProductDetailScreen() {
 
         is DetailUiState.Success -> {
             val scrollState = rememberScrollState()
+            val alpha = remember { mutableIntStateOf(0) }
+            LaunchedEffect(scrollState) {
+                snapshotFlow { scrollState.value }.collectLatest { scrollY ->
+                    alpha.intValue = scrollY
+                    if (alpha.intValue > 255) alpha.intValue = 255
+                }
+            }
 
             Column(
                 modifier = Modifier
@@ -64,12 +79,39 @@ fun ProductDetailScreen() {
                             .fillMaxWidth()
                             .verticalScroll(scrollState)
                     ) { ContentView(state.data) }
-                    TopBar()
+                    TopBar(
+                        alpha = alpha.intValue,
+                        onBack = { navController.popBackStack() },
+                        onShareText = { shareText(ctx, state.data.title) },
+                        onShareImage = {}
+                    )
                 }
-                BottomBar(onAddCart = { }, onBuy = { })
+                BottomBar(
+                    onAddCart = { vm.showBottomDialog.value = true },
+                    onBuy = { }
+                )
+                if (vm.showBottomDialog.value) {
+                    SpecDialog(
+                        data = state.data,
+                        onDismissRequest = { vm.showBottomDialog.value = false }
+                    )
+                }
             }
         }
     }
+}
+
+private fun shareText(context: Context, title: String) {
+    val sendIntent: Intent = Intent().apply {
+        action = Intent.ACTION_SEND
+        putExtra(
+            Intent.EXTRA_TEXT,
+            "推荐一个好商品：${title}"
+        )
+        type = "text/plain"
+    }
+    val shareIntent = Intent.createChooser(sendIntent, null)
+    context.startActivity(shareIntent)
 }
 
 

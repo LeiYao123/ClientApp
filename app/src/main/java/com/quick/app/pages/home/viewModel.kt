@@ -18,6 +18,9 @@ class HomeViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     val listUiState = mutableStateOf<HomeListUiState>(HomeListUiState.Loading)
     val detailUiState = mutableStateOf<DetailUiState>(DetailUiState.Loading)
 
+    // bottom sheet 弹窗
+    val showBottomDialog = mutableStateOf(false)
+
     init {
         Log.d("homeViewModel", "HomeViewModel 我执行了 --id --> $id")
         getProducts()
