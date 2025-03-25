@@ -1,6 +1,7 @@
 package com.quick.app.pages.me.comps
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,12 +10,14 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -25,19 +28,33 @@ import com.quick.app.components.ArrowIcon
 @Composable
 fun OrderInfo(
     modifier: Modifier = Modifier,
+    goToOrders: (type: String) -> Unit,
 ) {
 
     val orders = remember {
         listOf(
-            mapOf("icon" to R.drawable.mall_wait_pay, "text" to "待付款"),
-            mapOf("icon" to R.drawable.mall_wait_received, "text" to "待发货"),
-            mapOf("icon" to R.drawable.mall_wait_comment, "text" to "待评价"),
-            mapOf("icon" to R.drawable.mall_after_sales, "text" to "退款/售后"),
+            mapOf("icon" to R.drawable.mall_wait_pay, "text" to "待付款", "key" to "wait_pay"),
+            mapOf(
+                "icon" to R.drawable.mall_wait_received,
+                "text" to "待发货",
+                "key" to "wait_received"
+            ),
+            mapOf(
+                "icon" to R.drawable.mall_wait_comment,
+                "text" to "待评价",
+                "key" to "wait_comment"
+            ),
+            mapOf(
+                "icon" to R.drawable.mall_after_sales,
+                "text" to "退款/售后",
+                "key" to "after_sales"
+            ),
         )
     }
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors().copy(containerColor = Color.White)
     ) {
         Column {
             Row(
@@ -53,7 +70,9 @@ fun OrderInfo(
 
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(vertical = 4.dp)
+                    modifier = Modifier
+                        .clickable { goToOrders("all") }
+                        .padding(vertical = 4.dp)
                 ) {
                     Text(
                         text = "全部订单",
@@ -77,6 +96,7 @@ fun OrderInfo(
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
+                            .clickable { goToOrders(item["key"] as String) }
                             .weight(1f)
                             .padding(vertical = 12.dp)
                     ) {

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quick.app.MyApplication
 import com.quick.app.api.HomeApi
-import com.quick.app.data.PreferencesManager
+import com.quick.app.data.UserUtil
 import com.quick.app.models.LoginParams
 import kotlinx.coroutines.launch
 
@@ -37,7 +37,7 @@ class LoginAccountViewModel : ViewModel() {
                     return@launch
                 }
                 Toast.makeText(MyApplication.instance, "请求成功", Toast.LENGTH_LONG).show()
-                PreferencesManager.putObject("session", res.data)
+                UserUtil.saveSession(res.data)
                 // 成功跳转首页
                 uiState.value = LoginUiState.Success
             } catch (e: Exception) {

@@ -88,11 +88,12 @@ fun MeScreen() {
                 VIPHint()
             }
             CountInfo(modifier = Modifier.padding(horizontal = 12.dp))
-            OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
-            OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
-            OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
-            OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
-            OrderInfo(modifier = Modifier.padding(horizontal = 12.dp))
+            OrderInfo(
+                modifier = Modifier.padding(horizontal = 12.dp),
+                goToOrders = { param ->
+                    navController.navigate(PageRoutes.Orders.routeParam(param))
+                }
+            )
             Text("环境变量--${EnvConfig.env}")
             Text("base_url--${EnvConfig.base_url}")
         }

@@ -8,6 +8,7 @@ import com.quick.app.pages.index.IndexRoute
 import com.quick.app.pages.login.LoginRoute
 import com.quick.app.pages.loginAccount.LoginAccountRoute
 import com.quick.app.pages.me.MeRoute
+import com.quick.app.pages.orders.OrdersRoute
 import com.quick.app.pages.profile.ProfileRoute
 import com.quick.app.pages.splash.SplashRoute
 import com.quick.app.pages.video.VideoRoute
@@ -29,4 +30,5 @@ enum class PageRoutes(
     Login("login", { LoginRoute() }),
     LoginAccount("login/account", { LoginAccountRoute() }),
     Profile("profile", { ProfileRoute() }),
+    Orders("orders/{type}", { OrdersRoute() }, { "orders/$it" })
 }

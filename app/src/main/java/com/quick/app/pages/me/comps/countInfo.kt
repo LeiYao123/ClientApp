@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -29,8 +30,10 @@ fun CountInfo(
     )
 
     Card(
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .fillMaxWidth(),
         shape = MaterialTheme.shapes.small,
+        colors = CardDefaults.cardColors().copy(containerColor = Color.White)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -59,8 +62,8 @@ fun CountInfo(
                 if (index != list.size - 1) {
                     Spacer(
                         modifier = Modifier
-                            .height(32.dp)
-                            .width(2.dp)
+                            .height(40.dp)
+                            .width(1.dp)
                             .background(Color(0xFFf5f5f5))
                     )
                 }
