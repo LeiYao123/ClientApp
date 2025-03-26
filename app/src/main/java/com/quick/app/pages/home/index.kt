@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.quick.app.pages.home
 
 import android.util.Log
@@ -11,9 +13,16 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -30,6 +39,8 @@ import com.quick.app.pages.home.comps.ProductItem
 import com.quick.app.pages.home.comps.ProductListAppBar
 import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeRoute() {
@@ -41,7 +52,6 @@ fun HomeScreen(vm: HomeViewModel = viewModel()) {
     val datum by vm.datum
     val ads by vm.ads
     val listUiState by vm.listUiState
-    Log.d("homeViewModel", "$ads")
     Scaffold(topBar = { ProductListAppBar() }) { pd ->
         Box(modifier = Modifier.padding(top = pd.calculateTopPadding())) {
             when (val state = listUiState) {
@@ -51,7 +61,25 @@ fun HomeScreen(vm: HomeViewModel = viewModel()) {
                     message = state.error.message ?: "加载失败",
                     onClick = { vm.getProducts() })
 
-                is HomeListUiState.Success -> HomeList(datum, ads)
+                is HomeListUiState.Success -> {
+                    val refreshState = rememberPullToRefreshState()
+                    var isRefreshing by remember { mutableStateOf(false) }
+                    val coroutineScope = rememberCoroutineScope()
+                    val onRefresh: () -> Unit = {
+                        isRefreshing = true
+                        coroutineScope.launch {
+                            delay(3000)
+                            isRefreshing = false
+                        }
+                    }
+                    PullToRefreshBox(
+                        isRefreshing = isRefreshing,
+                        state = refreshState,
+                        onRefresh = onRefresh,
+                    ) {
+                        HomeList(datum, ads)
+                    }
+                }
             }
         }
     }
@@ -77,7 +105,7 @@ fun HomeList(datum: List<ProductModel>, ads: List<AdModel>) {
                 } else {
                     Toast.makeText(
                         MyApplication.instance,
-                        "暂不支持 ${item.uri}",
+                        "No Support ${item.uri}",
                         Toast.LENGTH_SHORT
                     ).show()
                 }
