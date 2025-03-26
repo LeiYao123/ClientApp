@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -83,6 +84,61 @@ fun ProductItem(data: ProductModel, modifier: Modifier = Modifier) {
 }
 
 
+@Composable
+fun ProductGridItem(data: ProductModel, modifier: Modifier = Modifier) {
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(5.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant)
+            .padding(8.dp)
+    ) {
+        AsyncImage(
+            model = data.icon,
+            placeholder = painterResource(R.drawable.ic_launcher_foreground),
+            error = painterResource(R.drawable.ic_launcher_foreground),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                // 通过下面两行在自身范围内居中
+                .fillMaxWidth()
+                .wrapContentSize(Alignment.Center)
+                .size(135.dp)
+                .padding(bottom = 8.dp)
+                .clip(RoundedCornerShape(7.dp))
+                .background(Color.LightGray)
+        )
+        Text(
+            modifier = Modifier.fillMaxWidth(),
+            text = data.title,
+            minLines = 2,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
+            color = MaterialTheme.colorScheme.onSurface
+        )
+
+        Spacer(modifier = Modifier.size(4.dp))
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "￥${data.price}",
+                color = MaterialTheme.colorScheme.onSurface
+            )
+            Text(
+                text = "销量：${data.salesCount}",
+                color = MaterialTheme.colorScheme.onSurface
+            )
+        }
+        Spacer(modifier = Modifier.size(4.dp))
+        Text(
+            text = "会员价：￥${data.memberPrice}",
+            color = MaterialTheme.colorScheme.primary
+        )
+    }
+}
+
+
 val MOCK_DATA = ProductModel(
     id = "1",
     title = "傻厨电煎锅多功能家用不粘锅电饼铛一体锅烙饼锅电烤锅烤肉电烤锅傻厨电煎锅多功能家用不粘锅电饼铛一体锅烙饼锅电烤锅烤肉电烤锅",
@@ -114,6 +170,13 @@ val MOCK_DATA = ProductModel(
 @Composable
 fun ProductItemPreview() {
     PreviewContent(null) {
-        ProductItem(data = MOCK_DATA)
+        Column {
+            ProductItem(MOCK_DATA)
+            Spacer(modifier = Modifier.size(10.dp))
+            Row(modifier = Modifier.fillMaxWidth()) {
+                ProductGridItem(MOCK_DATA, modifier = Modifier.weight(1f))
+                ProductGridItem(MOCK_DATA, modifier = Modifier.weight(1f))
+            }
+        }
     }
 }

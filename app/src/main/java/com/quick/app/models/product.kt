@@ -1,5 +1,7 @@
 package com.quick.app.models
 
+import com.google.gson.JsonObject
+
 data class ProductListModel<T>(
     val pagination: Pagination? = null,
     val list: List<T> = emptyList(),
@@ -40,4 +42,37 @@ data class ProductModel(
 )
 
 
+data class AdModel(
+    val title: String? = null,
+    val icon: String,
+    val uri: String? = null,
+    //* 类型，0：图片；10：视频；20：应用
+    val style: Int = 0,
+) {
+    companion object {
+        fun fromJson(json: JsonObject?): List<AdModel> {
+            if (json == null) return emptyList()
+            // 获取 "list" 数组
+            val listArray = json.get("list")?.asJsonArray ?: return emptyList()
+
+            // 获取 list 数组中的第一项
+            val firstItem = listArray.firstOrNull()?.asJsonObject ?: return emptyList()
+
+            // 获取 "ads" 数组
+            val adsArray = firstItem.get("ads")?.asJsonArray ?: return emptyList()
+
+            // 解析 ads 数组中的每个元素为 AdModel
+            return adsArray.mapNotNull {
+                // 确保每个 adElement 都能转换为 JsonObject
+                val adObject = it.asJsonObject
+                AdModel(
+                    title = adObject.get("title")?.asString,
+                    icon = adObject.get("icon")?.asString ?: "",
+                    uri = adObject.get("uri")?.asString,
+                    style = adObject.get("style")?.asInt ?: 0
+                )
+            }
+        }
+    }
+}
 

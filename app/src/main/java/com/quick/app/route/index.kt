@@ -16,7 +16,10 @@ val LocalNavController = staticCompositionLocalOf<NavHostController> {
 fun AppRoute(routeName: String? = null) {
     val navController = rememberNavController()
     CompositionLocalProvider(LocalNavController provides navController) {
-        NavHost(navController = navController, startDestination = routeName ?: "index/me") {
+        NavHost(
+            navController = navController,
+            startDestination = routeName ?: "index/home"
+        ) {
             PageRoutes.entries.forEach { pageRoute ->
                 composable(pageRoute.route) { pageRoute.composable() }
             }

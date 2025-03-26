@@ -1,12 +1,15 @@
 package com.quick.app.pages.home
 
 import android.util.Log
+import android.widget.Toast
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.quick.app.MyApplication
 import com.quick.app.api.HomeApi
+import com.quick.app.models.AdModel
 import com.quick.app.models.ProductModel
 import kotlinx.coroutines.launch
 
@@ -15,6 +18,7 @@ class HomeViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     private val id: String? = savedStateHandle["id"]
     val count = mutableIntStateOf(0)
     var datum = mutableStateOf(emptyList<ProductModel>())
+    val ads = mutableStateOf(emptyList<AdModel>())
     val listUiState = mutableStateOf<HomeListUiState>(HomeListUiState.Loading)
     val detailUiState = mutableStateOf<DetailUiState>(DetailUiState.Loading)
 
@@ -24,6 +28,20 @@ class HomeViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
     init {
         Log.d("homeViewModel", "HomeViewModel 我执行了 --id --> $id")
         getProducts()
+        getOtherData()
+    }
+
+    private fun getOtherData() {
+        viewModelScope.launch {
+            try {
+                val res = HomeApi.getHomeExtraData()
+                if (res.status == 0) {
+                    ads.value = AdModel.fromJson(res.data)
+                }
+            } catch (e: Exception) {
+                Toast.makeText(MyApplication.instance, "ad 数据请求失败", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     fun getProducts() {

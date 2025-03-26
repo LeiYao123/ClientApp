@@ -1,5 +1,6 @@
 package com.quick.app.api
 
+import com.google.gson.JsonObject
 import com.quick.app.models.LoginParams
 import com.quick.app.models.NetworkPageData
 import com.quick.app.models.Order
@@ -19,6 +20,10 @@ val HomeApi: HomeApiService = retrofit.create(HomeApiService::class.java)
 interface HomeApiService {
     @GET("/v1/products/page")
     suspend fun getProducts(): NetworkRes<ProductListModel<ProductModel>>
+
+    // 首页其他数据
+    @GET("/v1/indexes")
+    suspend fun getHomeExtraData(): NetworkRes<JsonObject>
 
     @GET("/v1/products/info")
     suspend fun productDetail(@Query(value = "id") id: String): NetworkRes<ProductModel>

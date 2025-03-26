@@ -12,6 +12,8 @@ import com.quick.app.pages.orders.OrdersRoute
 import com.quick.app.pages.profile.ProfileRoute
 import com.quick.app.pages.splash.SplashRoute
 import com.quick.app.pages.video.VideoRoute
+import com.quick.app.pages.web.WebRoute
+import com.quick.app.pages.web.createWebParam
 
 enum class PageRoutes(
     val route: String,
@@ -30,5 +32,7 @@ enum class PageRoutes(
     Login("login", { LoginRoute() }),
     LoginAccount("login/account", { LoginAccountRoute() }),
     Profile("profile", { ProfileRoute() }),
-    Orders("orders/{type}", { OrdersRoute() }, { "orders/$it" })
+    Orders("orders/{type}", { OrdersRoute() }, { "orders/$it" }),
+
+    Web("web/{web_param}", { WebRoute() }, { createWebParam(uri = it) })
 }

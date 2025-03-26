@@ -6,6 +6,11 @@
       @GET("/v1/products/page")
       suspend fun getProducts(): NetworkRes<JsonObject>
     }
+   
+    interface HomeApiService {
+      @GET("/v1/products/page")
+      suspend fun getProducts(): NetworkRes<MyDataClass>
+    }
    ```
 2. 创建 ItemModel 并提供 fromJson 方法
     ```kotlin
@@ -28,8 +33,12 @@
     ```kotlin
    try {
          val res = ApiClient.homeApiService.getProducts()
+         // 根据 ProductListModel 定义，将 res.data 自动转换
          val list = Gson().fromJson(res.data, ProductListModel::class.java)
-         val rr = res.data?.get("list")?.asJsonArray?.map { ItemModel.fromJson(it.asJsonObject) }
+         val rr = res.data?.get("list")?.asJsonArray?.map { 
+            // 手动转换 jsonObject 为 ItemModel
+            ItemModel.fromJson(it.asJsonObject) 
+         }
          Log.d("response", "$list $rr")
     } catch (e: Exception) {
          Log.d("response", e.toString())
