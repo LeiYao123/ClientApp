@@ -169,7 +169,7 @@ fun WebScreen(data: WebParam, onBack: () -> Unit) {
                 },
                 actions = {
                     IconButton(onClick = {
-                        Log.d("web_view", "关闭webview")
+                        Log.d("web_view", "关闭web view")
                         onBack()
                     }) {
                         Icon(imageVector = Icons.Default.Close, contentDescription = null)
