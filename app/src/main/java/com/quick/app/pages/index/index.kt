@@ -3,6 +3,7 @@ package com.quick.app.pages.index
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
@@ -32,7 +33,9 @@ fun IndexScreen(vm: IndexViewModel = viewModel()) {
     val pagerState =
         rememberPagerState(initialPage = pageIndex, pageCount = { BottomBarItem.entries.size })
 
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .navigationBarsPadding()) {
         HorizontalPager(
             state = pagerState,
             userScrollEnabled = false,

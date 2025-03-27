@@ -1,7 +1,7 @@
 package com.quick.app.config
 
 /**
- * Created by shell build apk 2025-03-19 18:08:16
+ * Created by shell build apk 2025-03-27 10:51:06
  * 不要手动修改此文件
  * 不要直接引用此文件，请使用 EnvConfig.env
  */

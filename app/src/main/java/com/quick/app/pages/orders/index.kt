@@ -1,6 +1,5 @@
 package com.quick.app.pages.orders
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -99,12 +98,7 @@ private fun OrderList(list: List<Order>) {
             .fillMaxWidth()
             .padding(vertical = 6.dp, horizontal = 12.dp)
     ) {
-        items(list.size) {
-            OrderItem(
-                data = list[it],
-                modifier = Modifier.clickable {}
-            )
-        }
+        items(list.size) { OrderItem(data = list[it]) }
         // 加载更多的提示
         if (isLoadMore) {
             item {
