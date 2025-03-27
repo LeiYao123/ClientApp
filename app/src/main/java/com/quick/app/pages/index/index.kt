@@ -6,20 +6,15 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.pages.home.HomeRoute
 import com.quick.app.pages.me.MeRoute
 import com.quick.app.pages.video.VideoRoute
-import com.quick.app.route.LocalNavController
-import com.quick.app.route.PageRoutes
 import kotlinx.coroutines.launch
 
 @Composable
@@ -27,19 +22,13 @@ fun IndexRoute() {
     IndexScreen()
 }
 
-val pagesArr = listOf(
-    PageRoutes.Home.route,
-    PageRoutes.Video.route,
-    PageRoutes.Me.route
-)
 
 @Composable
-fun IndexScreen() {
-    val navController = LocalNavController.current
-    val pageRoute = navController.currentBackStackEntry?.arguments?.getString("page")
+fun IndexScreen(vm: IndexViewModel = viewModel()) {
     val scope = rememberCoroutineScope()
-    var currTab: String by remember { mutableStateOf(pageRoute ?: PageRoutes.Home.route) }
-    val pageIndex = pagesArr.indexOf(currTab)
+    val currTab = vm.currTab
+    val pageIndex = pagesArr.indexOf(currTab.value)
+
     val pagerState =
         rememberPagerState(initialPage = pageIndex, pageCount = { BottomBarItem.entries.size })
 
@@ -58,8 +47,8 @@ fun IndexScreen() {
                 2 -> MeRoute()
             }
         }
-        BottomBar(currItem = currTab) { item, idx ->
-            currTab = item
+        BottomBar(currItem = currTab.value) { item, idx ->
+            currTab.value = item
             scope.launch {
                 pagerState.scrollToPage(idx)
             }
