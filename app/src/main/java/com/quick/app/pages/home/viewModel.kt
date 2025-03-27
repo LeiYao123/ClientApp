@@ -1,14 +1,13 @@
 package com.quick.app.pages.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.quick.app.MyApplication
 import com.quick.app.api.HomeApi
+import com.quick.app.extension.shortToast
 import com.quick.app.models.AdModel
 import com.quick.app.models.ProductModel
 import kotlinx.coroutines.launch
@@ -39,7 +38,7 @@ class HomeViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                     ads.value = AdModel.fromJson(res.data)
                 }
             } catch (e: Exception) {
-                Toast.makeText(MyApplication.instance, "ad 数据请求失败", Toast.LENGTH_SHORT).show()
+                "ad 数据请求失败".shortToast()
             }
         }
     }

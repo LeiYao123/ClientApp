@@ -1,6 +1,5 @@
 package com.quick.app.pages.profile
 
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -33,10 +32,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil3.compose.AsyncImage
-import com.quick.app.MyApplication
 import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.components.RuTopAppBar
+import com.quick.app.extension.shortToast
 import com.quick.app.models.User
 import com.quick.app.pages.me.MeViewModel
 import com.quick.app.pages.profile.comps.SettingInput
@@ -157,7 +156,7 @@ fun ProfileScreen() {
                 onClick = {
                     vm.logout()
                     navController.popBackStack()
-                    Toast.makeText(MyApplication.instance, "退出登录", Toast.LENGTH_SHORT).show()
+                    "退出登录".shortToast()
                 },
                 modifier = Modifier
                     .padding(vertical = 24.dp)

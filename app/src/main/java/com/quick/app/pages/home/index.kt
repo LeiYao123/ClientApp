@@ -1,9 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.quick.app.pages.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,24 +10,18 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.pulltorefresh.PullToRefreshBox
-import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.quick.app.MyApplication
 import com.quick.app.PreviewContent
 import com.quick.app.components.ErrorTips
 import com.quick.app.components.Loading
+import com.quick.app.components.RuPullToRefresh
+import com.quick.app.extension.shortToast
 import com.quick.app.models.AdModel
 import com.quick.app.models.ProductModel
 import com.quick.app.pages.home.comps.AdsList
@@ -40,7 +31,6 @@ import com.quick.app.pages.home.comps.ProductListAppBar
 import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun HomeRoute() {
@@ -62,21 +52,10 @@ fun HomeScreen(vm: HomeViewModel = viewModel()) {
                     onClick = { vm.getProducts() })
 
                 is HomeListUiState.Success -> {
-                    val refreshState = rememberPullToRefreshState()
-                    var isRefreshing by remember { mutableStateOf(false) }
-                    val coroutineScope = rememberCoroutineScope()
-                    val onRefresh: () -> Unit = {
-                        isRefreshing = true
-                        coroutineScope.launch {
-                            delay(3000)
-                            isRefreshing = false
-                        }
-                    }
-                    PullToRefreshBox(
-                        isRefreshing = isRefreshing,
-                        state = refreshState,
-                        onRefresh = onRefresh,
-                    ) {
+                    RuPullToRefresh(onRefreshApi = {
+                        delay(2000)
+                        "刷新成功".shortToast()
+                    }) {
                         HomeList(datum, ads)
                     }
                 }
@@ -102,13 +81,7 @@ fun HomeList(datum: List<ProductModel>, ads: List<AdModel>) {
                 Log.d("homeViewModel", "${item.uri}")
                 if (item.uri?.contains("https") == true) {
                     navController.navigate(PageRoutes.Web.routeParam(item.uri))
-                } else {
-                    Toast.makeText(
-                        MyApplication.instance,
-                        "No Support ${item.uri}",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
+                } else "No Support ${item.uri}".shortToast()
             }
         }
         items(datum.size, span = { GridItemSpan(2) }) { idx ->

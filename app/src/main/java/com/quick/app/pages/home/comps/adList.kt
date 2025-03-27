@@ -60,9 +60,9 @@ fun AdsList(items: List<AdModel>, onClick: (AdModel) -> Unit) {
         val lifecycle = LocalLifecycleOwner.current.lifecycle
         LaunchedEffect(Unit) {
             var job: Job? = null
-
             val observer = object : DefaultLifecycleObserver {
                 override fun onResume(owner: LifecycleOwner) {
+                    if (items.isEmpty()) return // 避免进入无限循环并抛异常
                     job = scope.launch {
                         while (true) {
                             delay(3000L)

@@ -2,6 +2,7 @@ package com.quick.app.components
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
@@ -23,4 +24,13 @@ fun Loading(isShow: Boolean = true) {
             strokeWidth = 3.dp // 线条宽度
         )
     }
+}
+
+@Composable
+fun InlineLoading() {
+    CircularProgressIndicator(
+        modifier = Modifier
+            .padding(4.dp)
+            .size(24.dp)
+    )
 }
