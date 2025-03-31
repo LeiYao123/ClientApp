@@ -13,6 +13,18 @@ TEMPLATE_FILE="template/env.tpl"
 OUTPUT_FILE="app/src/main/java/com/quick/app/config/env.kt"
 CREATED_AT=$(date "+%Y-%m-%d %H:%M:%S")
 
+#VERSION_CODE=$(./gradlew properties | grep "versionCode:" | awk '{print $2}')
+#VERSION_NAME=$(./gradlew properties | grep "versionName:" | awk '{print $2}')
+#
+#echo "VERSION_CODE: $VERSION_CODE"
+#echo "VERSION_NAME: $VERSION_NAME"
+
+VERSION_CODE=$(grep 'versionCode' app/build.gradle.kts | sed -E 's/.*versionCode = ([0-9]+).*/\1/')
+VERSION_NAME=$(grep 'versionName' app/build.gradle.kts | sed -E 's/.*versionName = "(.*)".*/\1/')
+
+echo "VERSION_CODE: $VERSION_CODE"
+echo "VERSION_NAME: $VERSION_NAME"
+
 # #如果有product/apk文件夹则删除，然后再创建一个空文件夹
 if [ -d "${BUILD_PATH}" ]; then
   rm -rf "${BUILD_PATH}"
@@ -34,7 +46,7 @@ echo "替换 BUILD_ENV 成功， 开始构建 Android APK... ➡ 正在构建 $B
 
 echo "✅ Production APK 构建成功: $RELEASE_PATH"
 # 将 .apk文件拷贝到指定目录并重命名为 demo-app-release.apk
-mv "${RELEASE_PATH}"app-release.apk "${BUILD_PATH}"production-app-release.apk
+mv "${RELEASE_PATH}"app-release.apk "${BUILD_PATH}"production-"${VERSION_NAME}"-"${VERSION_CODE}".apk
 
 #====================================================================
 
@@ -52,7 +64,7 @@ echo "替换 BUILD_ENV 成功， 开始构建 Android APK... ➡ 正在构建 $B
 
 echo "✅ Demo APK 构建成功: $RELEASE_PATH"
 # 将 .apk文件拷贝到指定目录并重命名为 demo-app-release.apk
-mv "${RELEASE_PATH}"app-release.apk "${BUILD_PATH}"demo-app-release.apk
+mv "${RELEASE_PATH}"app-release.apk "${BUILD_PATH}"demo-"${VERSION_NAME}"-"${VERSION_CODE}".apk
 
 #====================================================================
 

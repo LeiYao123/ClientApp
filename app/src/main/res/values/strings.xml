@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">云商城</string>
+    <string name="app_name">云商城POS</string>
 
     <!--版权文本-->
     <string name="copyright" translatable="false">Copyright © %1$d Ixuea. All Rights Reserved</string>

@@ -31,3 +31,5 @@ object RuTheme {
         @Composable
         get() = LocalCustomColors.current
 }
+
+// 设置主题颜色上述得到的 colors 进行修改，利用 compositionLocalOf 动态设置 primaryBase
