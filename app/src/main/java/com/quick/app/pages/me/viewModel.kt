@@ -4,8 +4,13 @@ import android.util.Log
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.quick.app.components.toast.ToastCenter
+import com.quick.app.components.toast.ToastType
 import com.quick.app.data.PreferencesManager
 import com.quick.app.models.Session
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 class MeViewModel : ViewModel() {
     var session = mutableStateOf<Session?>(getPrefsSession())
@@ -13,6 +18,11 @@ class MeViewModel : ViewModel() {
 
     init {
         Log.d("MeViewModel", "me 我执行了")
+
+        viewModelScope.launch {
+            delay(2000)
+            ToastCenter.show("加载成功", ToastType.SUCCESS)
+        }
     }
 
     fun getPrefsSession(): Session? {

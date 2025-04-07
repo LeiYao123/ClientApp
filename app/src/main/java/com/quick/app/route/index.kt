@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.quick.app.components.toast.ToastHost
 
 val LocalNavController = staticCompositionLocalOf<NavHostController> {
     error("No NavController provided!")
@@ -15,14 +16,16 @@ val LocalNavController = staticCompositionLocalOf<NavHostController> {
 @Composable
 fun AppRoute(routeName: String? = null) {
     val navController = rememberNavController()
+
     CompositionLocalProvider(LocalNavController provides navController) {
         NavHost(
             navController = navController,
-            startDestination = routeName ?: "index/home"
+            startDestination = routeName ?: "index/me"
         ) {
             PageRoutes.entries.forEach { pageRoute ->
                 composable(pageRoute.route) { pageRoute.composable() }
             }
         }
     }
+    ToastHost()
 }

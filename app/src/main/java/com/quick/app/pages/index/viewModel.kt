@@ -1,5 +1,6 @@
 package com.quick.app.pages.index
 
+import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -26,5 +27,11 @@ class IndexViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                 initialValue = PageRoutes.Home.route,
             )
 
-    var currTab = mutableStateOf(page.value)
+    val page2 = savedStateHandle.get<String>("page")
+
+    init {
+        Log.d("page-->", "${page.value} , $page2")
+    }
+
+    var currTab = mutableStateOf(page2!!)
 }
