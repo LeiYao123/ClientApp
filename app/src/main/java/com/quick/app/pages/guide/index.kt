@@ -1,7 +1,5 @@
 package com.quick.app.pages.guide
 
-import android.util.Log
-import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -43,9 +41,9 @@ fun GuideRoute() {
 @Composable
 fun GuideScreen() {
     // 拦截返回键
-    BackHandler(enabled = true) {
-        Log.d("GuideRoute", "GuideRoute - BackHandler")
-    }
+//    BackHandler(enabled = true) {
+//        Log.d("GuideRoute", "GuideRoute - BackHandler")
+//    }
     Scaffold {
         Column(
             modifier = Modifier

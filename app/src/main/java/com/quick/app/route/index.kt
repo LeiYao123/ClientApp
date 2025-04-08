@@ -20,7 +20,7 @@ fun AppRoute(routeName: String? = null) {
     CompositionLocalProvider(LocalNavController provides navController) {
         NavHost(
             navController = navController,
-            startDestination = routeName ?: "test/screen"
+            startDestination = routeName ?: "splash"
         ) {
             PageRoutes.entries.forEach { pageRoute ->
                 composable(pageRoute.route) { pageRoute.composable() }

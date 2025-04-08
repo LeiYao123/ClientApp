@@ -50,6 +50,10 @@ fun SplashRoute(
         controller.navigate(PageRoutes.Guide.route)
         viewModel.stopCountDown()
     }
+    fun toComponentDemo() {
+        controller.navigate(PageRoutes.ComponentDemo.route)
+        viewModel.stopCountDown()
+    }
 
 //    if (tl == 0) {
 //        LaunchedEffect(Unit) { toNextPage() }
@@ -93,6 +97,10 @@ fun SplashRoute(
                 contentPadding = PaddingValues(0.dp),
                 onClick = { toNextPage() }
             ) { Text("${tl}s") }
+            Button(
+                modifier = Modifier.padding(end = 10.dp),
+                onClick = { toComponentDemo() }
+            ) { Text("Components Demo") }
             Image(
                 modifier = Modifier
                     .align(Alignment.TopCenter)
@@ -104,7 +112,7 @@ fun SplashRoute(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
                     .width(200.dp)
-                    .padding(bottom = 90.dp),
+                    .padding(bottom = 20.dp),
                 painter = painterResource(id = R.drawable.splash_logo),
                 contentDescription = "App Logo"
             )

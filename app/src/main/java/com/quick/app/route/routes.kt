@@ -1,6 +1,7 @@
 package com.quick.app.route
 
 import androidx.compose.runtime.Composable
+import com.quick.app.pages.demo.ComponentDemoRoute
 import com.quick.app.pages.guide.GuideRoute
 import com.quick.app.pages.home.HomeRoute
 import com.quick.app.pages.home.detail.ProductDetailRoute
@@ -22,6 +23,7 @@ enum class PageRoutes(
     val routeParam: ((String) -> String) = { it -> it },
 ) {
     TestScreen("test/screen", { TestScreenRoute() }),
+    ComponentDemo("component/demo", { ComponentDemoRoute() }),
 
     Splash("splash", { SplashRoute() }),
     Guide("guide", { GuideRoute() }),
