@@ -11,6 +11,7 @@ import com.quick.app.pages.me.MeRoute
 import com.quick.app.pages.orders.OrdersRoute
 import com.quick.app.pages.profile.ProfileRoute
 import com.quick.app.pages.splash.SplashRoute
+import com.quick.app.pages.test.TestScreenRoute
 import com.quick.app.pages.video.VideoRoute
 import com.quick.app.pages.web.WebRoute
 import com.quick.app.pages.web.createWebParam
@@ -20,6 +21,8 @@ enum class PageRoutes(
     val composable: @Composable () -> Unit,
     val routeParam: ((String) -> String) = { it -> it },
 ) {
+    TestScreen("test/screen", { TestScreenRoute() }),
+
     Splash("splash", { SplashRoute() }),
     Guide("guide", { GuideRoute() }),
 

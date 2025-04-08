@@ -29,10 +29,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.R
-import com.quick.app.pages.splash.comps.TermServiceDialog
 import com.quick.app.route.LocalNavController
 import com.quick.app.route.PageRoutes
-import com.quick.app.util.ProcessUtil
 
 
 @Composable
@@ -63,7 +61,7 @@ fun SplashRoute(
         }
     }
 
-    TermServiceDialog(onAgree = { toNextPage() }, onDisagree = { ProcessUtil.killApp() })
+//    TermServiceDialog(onAgree = { toNextPage() }, onDisagree = { ProcessUtil.killApp() })
 
     Scaffold {
         Box(

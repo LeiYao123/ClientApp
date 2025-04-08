@@ -13,7 +13,7 @@ android {
         minSdk = 26
         targetSdk = 35
         // 版本号
-        versionCode = 20250331
+        versionCode = 20250407
         versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
