@@ -5,6 +5,9 @@ plugins {
 }
 
 android {
+    lint {
+        disable.add("ModifierParameter") // 禁用 Modifier 参数位置警告
+    }
     namespace = "com.quick.app"
     compileSdk = 35
 
@@ -86,6 +89,7 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation("io.coil-kt.coil3:coil-svg:3.1.0")
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
     implementation("de.charlex.compose.material3:material3-html-text:2.0.0-beta01")
 

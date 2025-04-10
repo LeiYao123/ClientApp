@@ -19,8 +19,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.ErrorTips
-import com.quick.app.components.Loading
 import com.quick.app.components.RuPullToRefresh
+import com.quick.app.components.loading.Loading
 import com.quick.app.extension.shortToast
 import com.quick.app.models.AdModel
 import com.quick.app.models.ProductModel

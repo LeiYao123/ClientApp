@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.ErrorTips
-import com.quick.app.components.Loading
+import com.quick.app.components.loading.Loading
 import com.quick.app.pages.home.DetailUiState
 import com.quick.app.pages.home.HomeViewModel
 import com.quick.app.pages.home.comps.BottomBar

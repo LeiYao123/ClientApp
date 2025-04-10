@@ -22,9 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.quick.app.components.Loading
 import com.quick.app.components.RuPullToRefresh
 import com.quick.app.components.RuTopAppBar
+import com.quick.app.components.loading.Loading
 import com.quick.app.extension.shortToast
 import com.quick.app.models.Order
 import com.quick.app.pages.orders.comps.OrderItem
