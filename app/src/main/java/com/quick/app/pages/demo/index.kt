@@ -20,6 +20,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.quick.app.components.button.RuButton
 import com.quick.app.components.button.RuButtonDemo
+import com.quick.app.components.checkbox.RuCheckboxDemo
 import com.quick.app.components.radio.RadioGroupExample
 import com.quick.app.ui.theme.RuTheme
 
@@ -35,10 +36,11 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "button"
+                startDestination = "checkbox"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
+                composable("checkbox") { RuCheckboxDemo() }
                 composable("radio") { RadioGroupExample() }
             }
         }
@@ -55,6 +57,7 @@ fun DemoIndex(navController: NavHostController) {
         Text("component demo", color = RuTheme.colors.primaryBase, style = RuTheme.typo.titleH3)
         Spacer(modifier = Modifier.height(16.dp))
         RuButton("button demo", onClick = { navController.navigate("button") })
+        RuButton("checkbox demo", onClick = { navController.navigate("checkbox") })
         RuButton("radio demo", onClick = { navController.navigate("radio") })
     }
 }
