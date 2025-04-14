@@ -11,6 +11,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
@@ -23,7 +24,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.quick.app.components.loading.Loading
 import com.quick.app.components.radio.SelectableRadioGroup
 
 @Composable
@@ -93,7 +93,33 @@ fun RuButtonDemo() {
                     }
                     Spacer(modifier = Modifier.height(16.dp))
                 }
-                Loading(size = 48, tint = Color.Cyan)
+
+                Spacer(modifier = Modifier.height(20.dp))
+                Row {
+                    RuCompactStyle.entries.forEach {
+                        RuCompactButton(
+                            size = RuCompactSize.L,
+                            enabled = checkedEnabled,
+                            style = it,
+                            icon = Icons.Default.Close,
+                        )
+                        Spacer(modifier = Modifier.width(20.dp))
+                    }
+
+                }
+                Spacer(modifier = Modifier.height(20.dp))
+                Row {
+                    RuCompactStyle.entries.forEach {
+                        RuCompactButton(
+                            size = RuCompactSize.M,
+                            enabled = checkedEnabled,
+                            style = it,
+                            icon = Icons.Default.Close,
+                        )
+                        Spacer(modifier = Modifier.width(20.dp))
+                    }
+
+                }
             }
         }
     }
