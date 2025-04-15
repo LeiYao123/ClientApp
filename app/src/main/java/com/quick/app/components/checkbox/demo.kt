@@ -32,21 +32,35 @@ fun RuCheckboxDemo() {
             color = Color.Transparent
         ) {
             Column {
+                val currType = remember { mutableStateOf(BoxType.CHECKBOX) }
+                Row {
+                    BoxType.entries.forEach {
+                        RuCheckBox(
+                            type = BoxType.RADIO,
+                            text = it.name,
+                            checked = currType.value == it,
+                            onChange = { _ -> currType.value = it }
+                        )
+                        RuSpacer(12)
+                    }
+                }
+
+                RuSpacer(h = 24)
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    CheckBoxIcon()
-                    CheckBoxIcon(enabled = false)
-                    CheckBoxIcon(checked = true)
-                    CheckBoxIcon(checked = true, enabled = false)
-                    CheckBoxIcon(indeterminate = true)
-                    CheckBoxIcon(indeterminate = true, enabled = false)
+                    BoxIcon(type = currType.value)
+                    BoxIcon(type = currType.value, enabled = false)
+                    BoxIcon(type = currType.value, checked = true)
+                    BoxIcon(type = currType.value, checked = true, enabled = false)
+                    BoxIcon(type = currType.value, indeterminate = true)
+                    BoxIcon(type = currType.value, indeterminate = true, enabled = false)
                 }
                 RuSpacer(h = 12)
 
                 // =========================================================================================================
 
-                LabelCheckbox()
+                LabelCheckbox(currType.value)
                 RuSpacer(h = 12)
-                CardCheckbox()
+                CardCheckbox(currType.value)
             }
         }
     }
@@ -54,7 +68,7 @@ fun RuCheckboxDemo() {
 
 
 @Composable
-fun LabelCheckbox() {
+fun LabelCheckbox(type: BoxType) {
     val subLabel: @Composable () -> Unit = {
         Text(
             text = "(subLabel)",
@@ -75,6 +89,7 @@ fun LabelCheckbox() {
 
     val checked = remember { mutableStateOf(false) }
     RuCheckBox(
+        type = type,
         modifier = Modifier.width(280.dp),
         text = "CheckBox",
         checked = checked.value,
@@ -87,6 +102,7 @@ fun LabelCheckbox() {
     )
     RuSpacer(h = 12)
     RuCheckBox(
+        type = type,
         modifier = Modifier.width(280.dp),
         text = "CheckBox",
         checked = checked.value,
@@ -100,7 +116,7 @@ fun LabelCheckbox() {
 
 
 @Composable
-fun CardCheckbox() {
+fun CardCheckbox(type: BoxType) {
     val subLabel: @Composable () -> Unit = {
         Text(
             text = "(subLabel)",
@@ -121,6 +137,7 @@ fun CardCheckbox() {
 
     val checked = remember { mutableStateOf(false) }
     RuCheckBoxCard(
+        type = type,
         modifier = Modifier.width(280.dp),
         text = "CheckBox",
         checked = checked.value,
@@ -132,6 +149,7 @@ fun CardCheckbox() {
     )
     RuSpacer(h = 12)
     RuCheckBoxCard(
+        type = type,
         modifier = Modifier.width(380.dp),
         text = "CheckBox",
         checked = checked.value,
@@ -145,7 +163,6 @@ fun CardCheckbox() {
                 modifier = Modifier.size(40.dp),
                 contentDescription = ""
             )
-
         }
     )
 }

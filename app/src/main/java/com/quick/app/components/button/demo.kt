@@ -14,8 +14,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Switch
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -24,7 +22,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.quick.app.components.radio.SelectableRadioGroup
+import com.quick.app.components.checkbox.BoxType
+import com.quick.app.components.checkbox.RuCheckBox
+import com.quick.app.components.spacer.RuSpacer
 
 @Composable
 fun RuButtonDemo() {
@@ -35,34 +35,38 @@ fun RuButtonDemo() {
                 .padding(16.dp),
             color = Color.Transparent
         ) {
-            val sizeOpts = RuButtonSize.entries.map { it }
-            var selectedSize by remember { mutableStateOf<RuButtonSize?>(null) }
+            val selectedSize = remember { mutableStateOf(RuButtonSize.M) }
+
             var checkedEnabled by remember { mutableStateOf(true) }
             var checkedLoading by remember { mutableStateOf(false) }
 
             Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
                 Row {
-                    Text("size: ")
-                    SelectableRadioGroup(
-                        options = sizeOpts,
-                        selectedOption = selectedSize,
-                        onChange = { selectedSize = it }
-                    )
+                    RuButtonSize.entries.forEach {
+                        RuCheckBox(
+                            type = BoxType.RADIO,
+                            text = it.name,
+                            checked = selectedSize.value == it,
+                            onChange = { _ -> selectedSize.value = it }
+                        )
+                        RuSpacer(12)
+                    }
                 }
-                Row {
-                    Text("enabled: ")
-                    Switch(
+                RuCheckBox(
+                    text = "enabled",
+                    type = BoxType.TOGGLE,
                         checked = checkedEnabled,
-                        onCheckedChange = { checkedEnabled = it }
+                    onChange = { checkedEnabled = it }
                     )
-                }
-                Row {
-                    Text("loading: ")
-                    Switch(
+
+                RuCheckBox(
+                    text = "loading",
+                    type = BoxType.TOGGLE,
                         checked = checkedLoading,
-                        onCheckedChange = { checkedLoading = it }
+                    onChange = { checkedLoading = it }
                     )
-                }
+
+                RuSpacer(h = 24)
 
 
 
@@ -70,7 +74,7 @@ fun RuButtonDemo() {
                     Row {
                         RuButtonStyle.entries.forEach { style ->
                             RuButton(
-                                size = selectedSize ?: RuButtonSize.M,
+                                size = selectedSize.value,
                                 enabled = checkedEnabled,
                                 loading = checkedLoading,
                                 type = type,
@@ -81,7 +85,7 @@ fun RuButtonDemo() {
                             )
                             Spacer(modifier = Modifier.width(10.dp))
                             RuButton(
-                                size = selectedSize ?: RuButtonSize.M,
+                                size = selectedSize.value,
                                 enabled = checkedEnabled,
                                 loading = checkedLoading,
                                 type = type,

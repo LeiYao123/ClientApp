@@ -14,12 +14,13 @@ import com.quick.app.components.spacer.RuSpacer
 import com.quick.app.ui.theme.RuTheme
 
 
+
 @Composable
 fun RuCheckBox(
     modifier: Modifier = Modifier,
+    type: BoxType = BoxType.CHECKBOX,
     enabled: Boolean = true,
     checked: Boolean = false,
-    isToggle: Boolean = false,
     indeterminate: Boolean = false,
     text: String? = null,
     isFlip: Boolean = false,
@@ -31,17 +32,26 @@ fun RuCheckBox(
     val rColor = RuTheme.colors
     val secondaryColor = if (enabled) rColor.textSub else rColor.textSoft
 
+    val icon: @Composable () -> Unit = {
+        BoxIcon(
+            type = type,
+            enabled = enabled,
+            checked = checked,
+            indeterminate = indeterminate
+        )
+    }
+
     Column(
-        modifier = modifier.clickable { if (enabled && onChange != null) onChange(!checked) },
+        modifier = modifier.clickable {
+            if (enabled && onChange != null) {
+                if (checked && type == BoxType.RADIO) return@clickable
+                else onChange(!checked)
+            }
+        },
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             if (!isFlip) {
-                CheckBoxIcon(
-                    enabled = enabled,
-                    checked = checked,
-                    isToggle = isToggle,
-                    indeterminate = indeterminate
-                )
+                icon()
                 RuSpacer(8)
             }
 
@@ -62,12 +72,7 @@ fun RuCheckBox(
             if (badge != null) badge()
             if (isFlip) {
                 Expanded()
-                CheckBoxIcon(
-                    enabled = enabled,
-                    checked = checked,
-                    isToggle = isToggle,
-                    indeterminate = indeterminate
-                )
+                icon()
             }
         }
         RuSpacer(h = 4)

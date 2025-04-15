@@ -25,7 +25,7 @@ fun RuCheckBoxCard(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     checked: Boolean = false,
-    isToggle: Boolean = false,
+    type: BoxType = BoxType.CHECKBOX,
     indeterminate: Boolean = false,
     text: String? = null,
     icon: @Composable (() -> Unit)? = null,
@@ -37,7 +37,12 @@ fun RuCheckBoxCard(
     val rColor = RuTheme.colors
 
     val mod = modifier
-        .clickable { onChange?.invoke(!checked) }
+        .clickable {
+            if (enabled && onChange != null) {
+                if (checked && type == BoxType.RADIO) return@clickable
+                else onChange(!checked)
+            }
+        }
         .clip(RoundedCornerShape(RuTheme.radius.radius12))
         .background(rColor.bgWhite)
         .border(
@@ -67,12 +72,13 @@ fun RuCheckBoxCard(
             }
             if (badge != null) badge()
             Expanded()
-            CheckBoxIcon(
+            BoxIcon(
+                type = type,
                 enabled = enabled,
                 checked = checked,
-                isToggle = isToggle,
                 indeterminate = indeterminate
             )
+
         }
         RuSpacer(h = 4)
         if (desc != null) {
