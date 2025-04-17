@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.quick.app.components.toast.ToastCenter
-import com.quick.app.components.toast.ToastType
 import com.quick.app.data.PreferencesManager
 import com.quick.app.models.Session
 import kotlinx.coroutines.delay
@@ -21,7 +19,7 @@ class MeViewModel : ViewModel() {
 
         viewModelScope.launch {
             delay(2000)
-            ToastCenter.show("加载成功", ToastType.SUCCESS)
+//            ToastCenter.show("加载成功", ToastType.SUCCESS)
         }
     }
 

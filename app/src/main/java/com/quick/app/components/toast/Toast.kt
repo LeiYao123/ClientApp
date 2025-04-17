@@ -1,196 +1,399 @@
 package com.quick.app.components.toast
 
-import android.app.Application
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Error
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material.icons.filled.Warning
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.IntOffset
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.quick.app.components.spacer.Expanded
+import com.quick.app.components.svgicon.SvgIcon
+import com.quick.app.components.svgicon.SvgPath
+import com.quick.app.ui.theme.RuColors
+import com.quick.app.ui.theme.RuTheme
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 
-enum class ToastType { SUCCESS, ERROR, WARNING, INFO }
-enum class ToastPosition { TOP, CENTER, BOTTOM }
-
-const val DURATION = 2000L
-
-data class ToastData(
-    val message: String,
-    val type: ToastType = ToastType.INFO,
-    val duration: Long = DURATION,
-    val position: ToastPosition = ToastPosition.TOP,
-    val id: Long = 0, // 唯一标识
-)
-
-class ToastManager(application: Application) : AndroidViewModel(application) {
-    private val _toasts = MutableStateFlow<List<ToastData>>(emptyList())
-    val toasts = _toasts.asStateFlow()
-
-    // 显示一个新的 toast
-    fun show(toast: ToastData) {
-        val newToast = toast.copy(id = System.currentTimeMillis()) // 确保每个 Toast 唯一
-        _toasts.update { it + newToast }
-
-        viewModelScope.launch {
-            delay(toast.duration) // 等待指定时间后消失
-            dismiss(newToast.id) // 消失逻辑
-        }
-    }
-
-    // 手动关闭一个指定的 toast
-    fun dismiss(id: Long) {
-        _toasts.update { it.filterNot { toast -> toast.id == id } }
-    }
-}
-
-object ToastCenter {
-    private var vm: ToastManager? = null
-
-    // 初始化
-    fun init(viewModel: ToastManager) {
-        vm = viewModel
-    }
-
-    // 显示 toast
-    fun show(
-        message: String,
-        type: ToastType = ToastType.INFO,
-        duration: Long = DURATION,
-        position: ToastPosition = ToastPosition.TOP,
-    ) {
-        vm?.show(ToastData(message, type, duration, position))
-    }
-
-    // 手动关闭 toast
-    fun dismiss(id: Long) = vm?.dismiss(id)
-}
 
 @Composable
 fun ToastHost(viewModel: ToastManager = viewModel()) {
     val toasts by viewModel.toasts.collectAsState()
 
     LaunchedEffect(Unit) {
-        ToastCenter.init(viewModel)
+        Toast.init(viewModel)
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .windowInsetsPadding(WindowInsets.navigationBars)
+    ) {
         toasts.forEachIndexed { index, toast ->
-            Box(
-                modifier = Modifier
-                    .align(getAlignment(toast.position))
-                    .padding(top = (60 + index * 70).dp) // 防止重叠
-            ) {
-                AnimatedToast(data = toast, onDismiss = { viewModel.dismiss(toast.id) })
+            key(toast.id) {
+                // 防止重叠
+                val animatedPadding by animateDpAsState(
+                    targetValue = (32 + index * 50).dp,
+                    animationSpec = tween(durationMillis = 250), label = ""
+                )
+
+                val aniPos = getToastItemAnimate(toast.position, animatedPadding)
+
+                Box(
+                    modifier = Modifier
+                        .align(aniPos.pos)
+                        .padding(aniPos.pd)
+                ) {
+                    ToastItem(
+                        data = toast,
+                        onDismiss = { viewModel.dismiss(toast.id) }
+                    )
+                }
             }
         }
     }
 }
 
 
-fun getAlignment(position: ToastPosition): Alignment = when (position) {
-    ToastPosition.TOP -> Alignment.TopCenter
-    ToastPosition.CENTER -> Alignment.Center
-    ToastPosition.BOTTOM -> Alignment.BottomCenter
-}
-
 @Composable
-private fun AnimatedToast(data: ToastData, onDismiss: () -> Unit) {
-    val bgColor = when (data.type) {
-        ToastType.SUCCESS -> Color(0xFF4CAF50)
-        ToastType.ERROR -> Color(0xFFF44336)
-        ToastType.WARNING -> Color(0xFFFFC107)
-        ToastType.INFO -> Color(0xFF2196F3)
-    }
-    val icon = when (data.type) {
-        ToastType.SUCCESS -> Icons.Default.CheckCircle
-        ToastType.ERROR -> Icons.Default.Error
-        ToastType.WARNING -> Icons.Default.Warning
-        ToastType.INFO -> Icons.Default.Info
-    }
+fun ToastItem(
+    data: ToastModel,
+    onDismiss: () -> Unit,
+) {
+    val rColor = RuTheme.colors
+    val shape = RoundedCornerShape(size = RuTheme.radius.radius8)
+    val cfg = getToastItem(data.status, data.style, rColor)
+    val cfgSize = getToastItemSize(data.size)
 
     var visible by remember { mutableStateOf(false) }
-    LaunchedEffect(Unit) {
-        visible = true
+
+    LaunchedEffect(Unit) { visible = true }
+
+    LaunchedEffect(data.isDismissing) {
+        if (data.isDismissing) {
+            visible = false
+            delay(250)
+            onDismiss()
+        }
     }
 
-    val offsetY by animateDpAsState(
-        targetValue = if (visible) 0.dp else (-100).dp,
-        animationSpec = tween(300),
-        label = "toast_anim"
-    )
-
-    Card(
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(8.dp),
-        modifier = Modifier
-            .offset { IntOffset(0, offsetY.roundToPx()) }
-            .fillMaxWidth()
-            .padding(horizontal = 24.dp),
+    AnimatedVisibility(
+        visible = visible,
+        enter = slideInVertically(initialOffsetY = { -100 }) + fadeIn(tween(250)),
+        exit = slideOutVertically(targetOffsetY = { -100 }) + fadeOut(tween(250)),
+        label = "toast_anim",
     ) {
         Row(
             modifier = Modifier
-                .background(bgColor)
-                .padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+                .let {
+                    if (data.style == ToastStyle.Stroke) {
+                        it
+                            .shadow(
+                                elevation = 32.dp,
+                                spotColor = Color(0x1A0E121B),
+                                ambientColor = Color(0x1A0E121B)
+                            )
+                            .border(
+                                width = 1.dp,
+                                color = rColor.strokeSoft,
+                                shape = shape
+                            )
+                    } else it
+                }
+                .width(390.dp)
+                .background(cfg.bgColor, shape)
+                .padding(cfgSize.padding),
+            horizontalArrangement = Arrangement.spacedBy(cfgSize.gap.dp)
         ) {
-            Icon(
-                icon,
-                contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.size(24.dp)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Text(
-                text = data.message,
-                color = Color.White,
-                modifier = Modifier.weight(1f)
-            )
-            Spacer(modifier = Modifier.width(8.dp))
-            Icon(
-                imageVector = Icons.Default.Close,
-                contentDescription = "关闭",
-                tint = Color.White,
-                modifier = Modifier
-                    .size(20.dp)
-                    .clickable { onDismiss() }
-            )
+            cfg.icon(cfgSize.iconSize)
+            if (data.size == ToastSize.L && data.title != null)
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    Text(data.title, color = cfg.textColor, style = RuTheme.typo.labelS)
+                    Text(
+                        data.message,
+                        color = cfg.textColor.copy(alpha = if (data.style == ToastStyle.Filled) 1f else 0.72f),
+                        style = cfgSize.textSize
+                    )
+                }
+            else
+                Text(
+                    text = data.message,
+                    color = cfg.textColor,
+                    style = cfgSize.textSize,
+                    modifier = Modifier.weight(1f)
+                )
+            if (data.showDismiss) {
+                Expanded(1f)
+                SvgIcon(
+                    SvgPath.close_line,
+                    size = cfgSize.iconSize,
+                    tint = Color.White.copy(alpha = 0.72f),
+                    modifier = Modifier.clickable { onDismiss() }
+                )
+            }
         }
+    }
+}
+
+data class ToastItemAnimate(
+    val pos: Alignment,
+    val pd: PaddingValues,
+)
+
+
+fun getToastItemAnimate(position: ToastPosition, animatedPadding: Dp): ToastItemAnimate {
+    return when (position) {
+        ToastPosition.TopCenter -> ToastItemAnimate(
+            pos = Alignment.TopCenter,
+            pd = PaddingValues(top = animatedPadding)
+        )
+
+        ToastPosition.TopRight -> ToastItemAnimate(
+            pos = Alignment.TopEnd,
+            pd = PaddingValues(top = animatedPadding, end = 32.dp)
+        )
+
+        ToastPosition.BottomRight -> ToastItemAnimate(
+            pos = Alignment.BottomEnd,
+            pd = PaddingValues(bottom = animatedPadding, end = 32.dp)
+        )
+    }
+}
+
+data class ItemSizeModel(
+    val padding: PaddingValues,
+    val gap: Int,
+    val iconSize: Int,
+    val textSize: TextStyle,
+)
+
+fun getToastItemSize(size: ToastSize): ItemSizeModel {
+    return when (size) {
+        ToastSize.XS -> ItemSizeModel(
+            padding = PaddingValues(8.dp),
+            gap = 8,
+            iconSize = 16,
+            textSize = RuTheme.typo.paragraphXS,
+        )
+
+        ToastSize.S -> ItemSizeModel(
+            padding = PaddingValues(horizontal = 10.dp, vertical = 8.dp),
+            gap = 8,
+            iconSize = 20,
+            textSize = RuTheme.typo.paragraphS,
+        )
+
+        ToastSize.L -> ItemSizeModel(
+            padding = PaddingValues(start = 14.dp, end = 14.dp, top = 14.dp, bottom = 16.dp),
+            gap = 12,
+            iconSize = 20,
+            textSize = RuTheme.typo.paragraphS,
+        )
+    }
+}
+
+
+data class ItemModel(
+    val bgColor: Color,
+    val textColor: Color,
+    val icon: @Composable (si: Int) -> Unit,
+)
+
+fun getToastItem(status: ToastStatus, style: ToastStyle, rColor: RuColors): ItemModel {
+    return when (status) {
+        ToastStatus.ERROR -> {
+            when (style) {
+                ToastStyle.Filled -> ItemModel(
+                    bgColor = rColor.errorBase,
+                    textColor = rColor.textWhite,
+                    icon = { si: Int ->
+                        SvgIcon(SvgPath.error_warning_fill, si, rColor.bgWhite)
+                    },
+                )
+
+                ToastStyle.Light -> ItemModel(
+                    bgColor = rColor.errorLight,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.error_warning_fill, si, rColor.errorBase) },
+                )
+
+                ToastStyle.Lighter -> ItemModel(
+                    bgColor = rColor.errorLighter,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.error_warning_fill, si, rColor.errorBase) },
+                )
+
+                ToastStyle.Stroke -> ItemModel(
+                    bgColor = rColor.bgWhite,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.error_warning_fill, si, rColor.errorBase) },
+                )
+            }
+        }
+
+        ToastStatus.WARNING -> {
+            when (style) {
+                ToastStyle.Filled -> ItemModel(
+                    bgColor = rColor.warningBase,
+                    textColor = rColor.textWhite,
+                    icon = { si -> SvgIcon(SvgPath.alert_fill, si, rColor.bgWhite) },
+                )
+
+                ToastStyle.Light -> ItemModel(
+                    bgColor = rColor.warningLight,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.alert_fill, si, rColor.warningBase) },
+                )
+
+                ToastStyle.Lighter -> ItemModel(
+                    bgColor = rColor.warningLighter,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.alert_fill, si, rColor.warningBase) },
+                )
+
+                ToastStyle.Stroke -> ItemModel(
+                    bgColor = rColor.bgWhite,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.alert_fill, si, rColor.warningBase) },
+                )
+            }
+        }
+
+        ToastStatus.SUCCESS -> {
+            when (style) {
+                ToastStyle.Filled -> ItemModel(
+                    bgColor = rColor.successBase,
+                    textColor = rColor.textWhite,
+                    icon = { si -> SvgIcon(SvgPath.select_box_circle_fill, si, rColor.bgWhite) },
+                )
+
+                ToastStyle.Light -> ItemModel(
+                    bgColor = rColor.successLight,
+                    textColor = rColor.textStrong,
+                    icon = { si ->
+                        SvgIcon(
+                            SvgPath.select_box_circle_fill,
+                            si,
+                            rColor.successBase
+                        )
+                    },
+                )
+
+                ToastStyle.Lighter -> ItemModel(
+                    bgColor = rColor.successLighter,
+                    textColor = rColor.textStrong,
+                    icon = { si ->
+                        SvgIcon(
+                            SvgPath.select_box_circle_fill,
+                            si,
+                            rColor.successBase
+                        )
+                    },
+                )
+
+                ToastStyle.Stroke -> ItemModel(
+                    bgColor = rColor.bgWhite,
+                    textColor = rColor.textStrong,
+                    icon = { si ->
+                        SvgIcon(
+                            SvgPath.select_box_circle_fill,
+                            si,
+                            rColor.successBase
+                        )
+                    },
+                )
+            }
+        }
+
+        ToastStatus.INFO -> {
+            when (style) {
+                ToastStyle.Filled -> ItemModel(
+                    bgColor = rColor.primaryBase,
+                    textColor = rColor.textWhite,
+                    icon = { si -> SvgIcon(SvgPath.information_fill, si, rColor.bgWhite) },
+                )
+
+                ToastStyle.Light -> ItemModel(
+                    bgColor = rColor.informationLight,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.information_fill, si, rColor.primaryBase) },
+                )
+
+                ToastStyle.Lighter -> ItemModel(
+                    bgColor = rColor.informationLighter,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.information_fill, si, rColor.primaryBase) },
+                )
+
+                ToastStyle.Stroke -> ItemModel(
+                    bgColor = rColor.bgWhite,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.information_fill, si, rColor.primaryBase) },
+                )
+            }
+        }
+
+        ToastStatus.FEATURE -> {
+            when (style) {
+                ToastStyle.Filled -> ItemModel(
+                    bgColor = rColor.fadedBase,
+                    textColor = rColor.textWhite,
+                    icon = { si -> SvgIcon(SvgPath.magic_fill, si, rColor.bgWhite) },
+                )
+
+                ToastStyle.Light -> ItemModel(
+                    bgColor = rColor.fadedLight,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.magic_fill, si, rColor.fadedBase) },
+                )
+
+                ToastStyle.Lighter -> ItemModel(
+                    bgColor = rColor.fadedLighter,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.magic_fill, si, rColor.fadedBase) },
+                )
+
+                ToastStyle.Stroke -> ItemModel(
+                    bgColor = rColor.bgWhite,
+                    textColor = rColor.textStrong,
+                    icon = { si -> SvgIcon(SvgPath.magic_fill, si, rColor.fadedBase) },
+                )
+            }
+        }
+
     }
 }

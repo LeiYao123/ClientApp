@@ -24,6 +24,7 @@ import com.quick.app.components.button.RuButtonDemo
 import com.quick.app.components.buttonGroup.RuButtonGroupDemo
 import com.quick.app.components.checkbox.RuCheckboxDemo
 import com.quick.app.components.tab.RuTabDemo
+import com.quick.app.components.toast.ToastDemo
 import com.quick.app.ui.theme.RuTheme
 
 @Composable
@@ -38,7 +39,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "tab"
+                startDestination = "toast"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -46,6 +47,7 @@ fun ComponentDemoRoute() {
                 composable("badge") { RuBadgeDemo() }
                 composable("button_group") { RuButtonGroupDemo() }
                 composable("tab") { RuTabDemo() }
+                composable("toast") { ToastDemo() }
             }
         }
     }
@@ -65,5 +67,6 @@ fun DemoIndex(navController: NavHostController) {
         RuButton("badge demo", onClick = { navController.navigate("badge") })
         RuButton("button group demo", onClick = { navController.navigate("button_group") })
         RuButton("tab demo", onClick = { navController.navigate("tab") })
+        RuButton("toast demo", onClick = { navController.navigate("toast") })
     }
 }

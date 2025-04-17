@@ -29,9 +29,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.RuTopAppBar
-import com.quick.app.components.toast.ToastCenter
-import com.quick.app.components.toast.ToastPosition
-import com.quick.app.components.toast.ToastType
 import com.quick.app.config.EnvConfig
 import com.quick.app.pages.me.comps.CountInfo
 import com.quick.app.pages.me.comps.DefaultUserProfile
@@ -116,7 +113,7 @@ fun MeScreen() {
             val scope = rememberCoroutineScope()
             Button(onClick = {
 //                ToastCenter.show("加载失败", ToastType.ERROR)
-                ToastCenter.show("加载中", ToastType.INFO, position = ToastPosition.CENTER)
+//                ToastCenter.show("加载中", ToastType.INFO, position = ToastPosition.CENTER)
 //                ToastCenter.show("出错了", type = ToastType.ERROR, position = ToastPosition.BOTTOM)
             }) {
                 Text("CustomToast")
