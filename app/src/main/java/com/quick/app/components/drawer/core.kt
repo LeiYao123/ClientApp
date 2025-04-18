@@ -20,7 +20,7 @@ data class DrawerEntry(
     val direction: DrawerDirection = DrawerDirection.Left,
     val width: Dp = 300.dp,
     val dismissOnClickOutside: Boolean = true,
-    var requestDelete: Boolean = false,
+    val requestDelete: Boolean = false,
     val content: @Composable ColumnScope.() -> Unit,
 )
 

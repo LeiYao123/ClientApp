@@ -35,6 +35,7 @@ fun DrawerBody(entry: DrawerEntry, onClose: (id: String) -> Unit) {
         }
     }
 
+    // 监听外界主动 close
     LaunchedEffect(entry.requestDelete) {
         if (entry.requestDelete) {
             transitionState.targetState = false // 播放 exit
