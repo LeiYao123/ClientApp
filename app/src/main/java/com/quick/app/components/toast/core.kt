@@ -33,11 +33,11 @@ class ToastManager(application: Application) : AndroidViewModel(application) {
     private val _toasts = MutableStateFlow<List<ToastModel>>(emptyList())
     val toasts = _toasts.asStateFlow()
 
-    // 显示一个新的 toast
     fun show(toast: ToastModel) {
         val newToast = toast.copy(id = System.currentTimeMillis()) // 确保每个 Toast 唯一
         _toasts.update { it + newToast }
 
+        // 这里使用 AndroidViewModel 的 主要原因是有 延时自动关闭的需求，需要使用协程，正常 drawer 类的直接使用单例即可
         // 自动消失逻辑在 animatedToast 里面执行，因为要执行 动画消失效果
         viewModelScope.launch {
             delay(toast.duration) // 等待指定时间后消失
@@ -106,5 +106,4 @@ object Toast {
             showDismiss = showDismiss,
         )
     }
-
 }

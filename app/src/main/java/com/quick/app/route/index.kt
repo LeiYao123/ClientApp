@@ -7,6 +7,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.quick.app.components.drawer.DrawerHost
 import com.quick.app.components.toast.ToastHost
 
 val LocalNavController = staticCompositionLocalOf<NavHostController> {
@@ -27,5 +28,7 @@ fun AppRoute(routeName: String? = null) {
             }
         }
     }
+
+    DrawerHost()
     ToastHost()
 }

@@ -1,5 +1,6 @@
 package com.quick.app.pages.orders
 
+//import com.quick.app.components.drawer.DrawerCenter
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,9 +10,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -65,6 +68,13 @@ fun OrdersScreen(vm: OrdersViewModel = viewModel()) {
                         OrderList(vm.list.value)
                     }
                 }
+            }
+            Button(onClick = {
+//                DrawerCenter.open(DrawerEntry(id = "test", content = {
+//                    TestDrawer()
+//                }))
+            }) {
+                Text("打开 drawer")
             }
         }
     }

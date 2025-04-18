@@ -1,13 +1,14 @@
 package com.quick.app.pages.me
 
-import android.view.Gravity
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -20,7 +21,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.PreviewContent
 import com.quick.app.components.RuTopAppBar
+import com.quick.app.components.toast.Toast
 import com.quick.app.config.EnvConfig
 import com.quick.app.pages.me.comps.CountInfo
 import com.quick.app.pages.me.comps.DefaultUserProfile
@@ -102,19 +103,16 @@ fun MeScreen() {
             Text("环境变量--${EnvConfig.env}")
             Text("base_url--${EnvConfig.base_url}")
             val ctx = LocalContext.current
-            Button(onClick = {
-                val t = Toast.makeText(ctx, "toast", Toast.LENGTH_SHORT)
-                t.setGravity(Gravity.TOP, 0, 50)
-                t.show()
-            }) {
-                Text("Toast")
-            }
+//            Button(onClick = {
+//                val t = Toast.makeText(ctx, "toast", Toast.LENGTH_SHORT)
+//                t.setGravity(Gravity.TOP, 0, 50)
+//                t.show()
+//            }) {
+//                Text("Toast")
+//            }
 
-            val scope = rememberCoroutineScope()
             Button(onClick = {
-//                ToastCenter.show("加载失败", ToastType.ERROR)
-//                ToastCenter.show("加载中", ToastType.INFO, position = ToastPosition.CENTER)
-//                ToastCenter.show("出错了", type = ToastType.ERROR, position = ToastPosition.BOTTOM)
+                Toast.show("test toast in composable func")
             }) {
                 Text("CustomToast")
             }
@@ -145,3 +143,15 @@ fun MeRoutePreview() {
 //        Text("app ${appVm.appNum.intValue}")
 //    }
 //}
+
+@Composable
+fun TestDrawer() {
+    Box(
+        modifier = Modifier
+            .fillMaxHeight()
+            .width(300.dp)
+            .background(Color.Red)
+    ) {
+        Text("测试 drawer 在 viewModel 中调用")
+    }
+}

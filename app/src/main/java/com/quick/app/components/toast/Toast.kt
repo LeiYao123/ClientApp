@@ -394,6 +394,5 @@ fun getToastItem(status: ToastStatus, style: ToastStyle, rColor: RuColors): Item
                 )
             }
         }
-
     }
 }
