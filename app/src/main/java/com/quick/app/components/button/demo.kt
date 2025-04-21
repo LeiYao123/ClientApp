@@ -8,10 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -25,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.quick.app.components.checkbox.BoxType
 import com.quick.app.components.checkbox.RuCheckBox
 import com.quick.app.components.spacer.RuSpacer
+import com.quick.app.components.svgicon.SvgPath
 
 @Composable
 fun RuButtonDemo() {
@@ -79,8 +76,8 @@ fun RuButtonDemo() {
                                 loading = checkedLoading,
                                 type = type,
                                 style = style,
-                                iconLeft = Icons.AutoMirrored.Filled.ArrowBack,
-                                iconRight = Icons.AutoMirrored.Filled.ArrowForward,
+                                iconLeft = SvgPath.arrow_left_s_line,
+                                iconRight = SvgPath.arrow_right_s_line,
                                 text = "Button"
                             )
                             Spacer(modifier = Modifier.width(10.dp))
@@ -90,7 +87,7 @@ fun RuButtonDemo() {
                                 loading = checkedLoading,
                                 type = type,
                                 style = style,
-                                iconLeft = Icons.AutoMirrored.Filled.ArrowBack
+                                iconLeft = SvgPath.arrow_left_s_line
                             )
                             Spacer(modifier = Modifier.width(20.dp))
                         }
@@ -105,7 +102,7 @@ fun RuButtonDemo() {
                             size = RuCompactSize.L,
                             enabled = checkedEnabled,
                             style = it,
-                            icon = Icons.Default.Close,
+                            icon = SvgPath.close_line,
                         )
                         Spacer(modifier = Modifier.width(20.dp))
                     }
@@ -118,7 +115,7 @@ fun RuButtonDemo() {
                             size = RuCompactSize.M,
                             enabled = checkedEnabled,
                             style = it,
-                            icon = Icons.Default.Close,
+                            icon = SvgPath.close_line,
                         )
                         Spacer(modifier = Modifier.width(20.dp))
                     }

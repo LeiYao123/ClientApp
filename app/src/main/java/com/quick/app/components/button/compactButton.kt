@@ -11,7 +11,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -20,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import com.quick.app.components.svgicon.SvgIcon
 import com.quick.app.ui.theme.RuColors
 import com.quick.app.ui.theme.RuTheme
 
@@ -36,7 +35,7 @@ fun RuCompactButton(
     onClick: () -> Unit = {},
     style: RuCompactStyle = RuCompactStyle.STROKE,
     size: RuCompactSize = RuCompactSize.L,
-    icon: ImageVector? = null,
+    icon: String? = null,
     content: @Composable (() -> Unit)? = null,
 ) {
     val interactionSource = remember { MutableInteractionSource() }
@@ -96,11 +95,10 @@ fun RuCompactButton(
     ) {
         if (content != null) content()
         if (icon != null)
-            Icon(
+            SvgIcon(
                 icon,
-                modifier = Modifier.size(if (size == RuCompactSize.L) 20.dp else 18.dp),
-                contentDescription = "Close",
-                tint = textColor
+                tint = textColor,
+                size = if (size == RuCompactSize.L) 20 else 18
             )
     }
 }

@@ -50,30 +50,32 @@ fun ToastHost(viewModel: ToastManager = viewModel()) {
         Toast.init(viewModel)
     }
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.navigationBars)
-    ) {
-        toasts.forEachIndexed { index, toast ->
-            key(toast.id) {
-                // 防止重叠
-                val animatedPadding by animateDpAsState(
-                    targetValue = (32 + index * 50).dp,
-                    animationSpec = tween(durationMillis = 250), label = ""
-                )
-
-                val aniPos = getToastItemAnimate(toast.position, animatedPadding)
-
-                Box(
-                    modifier = Modifier
-                        .align(aniPos.pos)
-                        .padding(aniPos.pd)
-                ) {
-                    ToastItem(
-                        data = toast,
-                        onDismiss = { viewModel.dismiss(toast.id) }
+    if (toasts.isNotEmpty()) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.navigationBars)
+        ) {
+            toasts.forEachIndexed { index, toast ->
+                key(toast.id) {
+                    // 防止重叠
+                    val animatedPadding by animateDpAsState(
+                        targetValue = (32 + index * 50).dp,
+                        animationSpec = tween(durationMillis = 250), label = ""
                     )
+
+                    val aniPos = getToastItemAnimate(toast.position, animatedPadding)
+
+                    Box(
+                        modifier = Modifier
+                            .align(aniPos.pos)
+                            .padding(aniPos.pd)
+                    ) {
+                        ToastItem(
+                            data = toast,
+                            onDismiss = { viewModel.dismiss(toast.id) }
+                        )
+                    }
                 }
             }
         }

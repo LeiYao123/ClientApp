@@ -17,10 +17,10 @@ enum class DrawerDirection { Left, Right }
 
 data class DrawerEntry(
     val id: String = UUID.randomUUID().toString(),
-    val direction: DrawerDirection = DrawerDirection.Left,
-    val width: Dp = 300.dp,
+    val direction: DrawerDirection = DrawerDirection.Right,
+    val width: Dp = 480.dp,
     val dismissOnClickOutside: Boolean = true,
-    val requestDelete: Boolean = false,
+    val requestDelete: Boolean = false, // 外界调用删除，内部标记执行完动画再进行删除
     val content: @Composable ColumnScope.() -> Unit,
 )
 
