@@ -16,6 +16,10 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.quick.app.components.button.RuButton
@@ -27,28 +31,44 @@ import com.quick.app.components.spacer.RuSpacer
 
 @Composable
 fun DrawerDemo() {
+    var num by remember { mutableIntStateOf(0) }
     Box(modifier = Modifier.fillMaxSize()) {
         Column {
-            Button(onClick = { RuDrawer.open(DrawerEntry(id = "left_drawer_header") { RenderDrawerHeader() }) }) {
+            Button(onClick = {
+                RuDrawer.open(DrawerEntry(id = "left_drawer_header") {
+                    RenderDrawerHeader(
+                        num,
+                        onAdd = { num++ })
+                })
+            }) {
                 Text("打开左边 drawer header")
             }
 
-            Button(onClick = { RuDrawer.open(DrawerEntry(id = "left_drawer_footer") { RenderDrawerFooter() }) }) {
+            Button(onClick = {
+                RuDrawer.open(DrawerEntry(id = "left_drawer_footer") {
+                    RenderDrawerFooter(
+                        num,
+                        onAdd = { num++ })
+                })
+            }) {
                 Text("打开左边 drawer footer")
             }
+            Text("num 文本， $num")
+            Button(onClick = { num++; }) { Text("自增按钮") }
         }
     }
 }
 
 
 @Composable
-fun RenderDrawerHeader() {
+fun RenderDrawerHeader(num: Int, onAdd: () -> Unit) {
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         RuSpacer(h = 8)
-        RuDrawerHeader(title = "Insert title here", showBack = false)
+        RuDrawerHeader(title = "Insert title here $num", showBack = false)
+        Button(onClick = { onAdd() }) { Text("自增按钮") }
         RuDrawerHeader(
             title = "Insert title here",
             showBack = false,
@@ -115,7 +135,7 @@ fun RenderDrawerHeader() {
 
 
 @Composable
-fun RenderDrawerFooter() {
+fun RenderDrawerFooter(num: Int, onAdd: () -> Unit) {
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(8.dp)
@@ -130,11 +150,12 @@ fun RenderDrawerFooter() {
                     size = RuButtonSize.XL,
                 )
                 RuButton(
-                    "Continue",
+                    "Continue $num",
                     modifier = Modifier.weight(1f),
                     size = RuButtonSize.XL,
                     style = RuButtonStyle.FILLED,
-                    type = RuButtonType.PRIMARY
+                    type = RuButtonType.PRIMARY,
+                    onClick = { onAdd() }
                 )
             }
         }
