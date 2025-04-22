@@ -9,7 +9,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -86,11 +88,13 @@ fun AppDialog(entry: DialogEntry, onClose: (id: String) -> Unit) {
         Box(
             modifier = Modifier
                 .width(entry.width)
+                .clickable {}
                 .scale(scale)
                 .alpha(alpha)
                 .clip(RoundedCornerShape(20.dp))
                 .background(RuTheme.colors.bgWhite)
                 .wrapContentSize()
-        ) { entry.content() }
+
+        ) { Column(modifier = Modifier.fillMaxWidth(), content = entry.content) }
     }
 }

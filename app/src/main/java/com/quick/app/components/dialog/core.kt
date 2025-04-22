@@ -1,6 +1,7 @@
 package com.quick.app.components.dialog
 
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateListOf
@@ -14,7 +15,7 @@ data class DialogEntry(
     val dismissOnClickOutside: Boolean = true,
     val duration: Int = 300,
     var requestDelete: Boolean = false, // 外界调用删除，内部标记执行完动画再进行删除
-    val content: @Composable () -> Unit,
+    val content: @Composable ColumnScope.() -> Unit,
 )
 
 
