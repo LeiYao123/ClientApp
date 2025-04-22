@@ -19,7 +19,7 @@ const val DURATION = 3000L
 
 data class ToastModel(
     val message: String,
-    val title: String? = null, // 仅当 size 为 L 时存在
+    val desc: String? = null, // 仅当 size 为 L 时存在
     val status: ToastStatus = ToastStatus.INFO,
     val style: ToastStyle = ToastStyle.Filled,
     val size: ToastSize = ToastSize.S,
@@ -65,18 +65,18 @@ object Toast {
     // 显示 toast
     fun show(
         message: String,
+        desc: String? = null,
         status: ToastStatus = ToastStatus.INFO,
         style: ToastStyle = ToastStyle.Filled,
         size: ToastSize = ToastSize.S,
-        title: String? = null,
         duration: Long = DURATION,
         position: ToastPosition = ToastPosition.TopCenter,
         showDismiss: Boolean = false,
     ) {
         vm?.show(
             ToastModel(
-                title = title,
                 message = message,
+                desc = desc,
                 status = status,
                 style = style,
                 size = size,
@@ -89,18 +89,18 @@ object Toast {
 
     // 错误专用提示
     fun showError(
-        message: String,
-        title: String = "Server error",
+        message: String = "Server error",
+        desc: String,
         duration: Long = DURATION,
         position: ToastPosition = ToastPosition.TopCenter,
         showDismiss: Boolean = false,
     ) {
         show(
             message = message,
+            desc = desc,
             status = ToastStatus.ERROR,
             style = ToastStyle.Lighter,
             size = ToastSize.L,
-            title = title,
             duration = duration,
             position = position,
             showDismiss = showDismiss,

@@ -65,7 +65,7 @@ fun getToastItemSize(size: ToastSize): ItemSizeModel {
             padding = PaddingValues(start = 14.dp, end = 14.dp, top = 14.dp, bottom = 16.dp),
             gap = 12,
             iconSize = 20,
-            textSize = RuTheme.typo.paragraphS,
+            textSize = RuTheme.typo.labelS,
         )
     }
 }

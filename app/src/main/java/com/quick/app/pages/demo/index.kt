@@ -41,7 +41,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "dialog"
+                startDestination = "toast"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
