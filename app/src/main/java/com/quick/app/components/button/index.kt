@@ -70,7 +70,7 @@ fun RuButton(
     Row(
         horizontalArrangement = Arrangement.spacedBy(rect.gap, Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically,
-        modifier = modifier
+        modifier = Modifier
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -108,6 +108,7 @@ fun RuButton(
                     }
             }
             .padding(horizontal = rect.padding)
+            .then(modifier)
 
     ) {
         if (loading) Loading(tint = textColor)
