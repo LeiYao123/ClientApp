@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -12,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
@@ -97,6 +99,7 @@ fun CustomTextFieldDemo(
     showAddon: Boolean,
 ) {
     var text by remember { mutableStateOf("") }
+    val num = remember { mutableStateOf(0) }
 
     OutlinedTextField(
         value = text,
@@ -127,20 +130,43 @@ fun CustomTextFieldDemo(
         }
 
 
-    CustomTextField(
+    RuInput(
+        modifier = Modifier.width(500.dp),
+        contentAlignment = Alignment.CenterEnd,
         value = text,
         onValueChange = { text = it },
         size = size,
         isError = state == InputState.ERROR,
         disabled = state == InputState.DISABLED,
         placeholder = "Placeholder text...",
-        leftIcon = if (!showAddon && icons.contains("left")) SvgPath.search_2_line else null,
-        rightIcon = if (!showAddon && icons.contains("right")) SvgPath.close_line else null,
+        leftIcon = if (!showAddon && icons.contains("left")) IconType.Path(SvgPath.search_2_line) else null,
+        rightIcon = if (!showAddon && icons.contains("right")) IconType.Path(SvgPath.close_line) else null,
         leftAddon = if (showAddon && icons.contains("left")) leftAddon else null,
         rightAddon = if (showAddon && icons.contains("right")) rightAddon else null,
         imeAction = ImeAction.Done,
         onImeAction = {
             println("提交逻辑")
         }
+    )
+
+    CounterInput(
+        modifier = Modifier.width(500.dp),
+        value = num.value,
+        onValueChange = { num.value = it },
+        size = size,
+        isError = state == InputState.ERROR,
+        disabled = state == InputState.DISABLED,
+        placeholder = "Placeholder text...",
+        imeAction = ImeAction.Done,
+        onImeAction = {
+            println("提交逻辑提交逻辑")
+        }
+    )
+
+    Textarea(
+        value = text,
+        onValueChange = { text = it },
+        modifier = Modifier.width(500.dp),
+        placeholder = "Enter order note..."
     )
 }

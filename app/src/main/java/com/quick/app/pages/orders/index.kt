@@ -28,7 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.quick.app.components.RuPullToRefresh
 import com.quick.app.components.RuTopAppBar
 import com.quick.app.components.loading.Loading
-import com.quick.app.extension.shortToast
+import com.quick.app.components.toast.Toast
 import com.quick.app.models.Order
 import com.quick.app.pages.orders.comps.OrderItem
 import com.quick.app.pages.orders.comps.OrderTab
@@ -54,14 +54,14 @@ fun OrdersScreen(vm: OrdersViewModel = viewModel()) {
             )
             when (val ui = vm.uiState.value) {
                 LoadingState.Loading -> Loading()
-                is LoadingState.Error -> ui.data.shortToast()
-                is LoadingState.Error401 -> ui.data.shortToast()
+                is LoadingState.Error -> Toast.show(ui.data)
+                is LoadingState.Error401 -> Toast.show(ui.data)
                 LoadingState.NoMoreData -> TODO()
                 LoadingState.Success -> {
                     RuPullToRefresh(
                         onRefreshApi = {
                             delay(2000)
-                            "刷新成功".shortToast()
+                            Toast.show("刷新成功")
                         },
                         modifier = Modifier.weight(1f)
                     ) {

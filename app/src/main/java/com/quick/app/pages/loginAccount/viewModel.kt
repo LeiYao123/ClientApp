@@ -6,8 +6,8 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quick.app.api.HomeApi
+import com.quick.app.components.toast.Toast
 import com.quick.app.data.UserUtil
-import com.quick.app.extension.shortToast
 import com.quick.app.models.LoginParams
 import kotlinx.coroutines.launch
 
@@ -19,7 +19,7 @@ class LoginAccountViewModel : ViewModel() {
     fun login() {
         if (phone.isEmpty() || pwd.isEmpty()) {
             uiState.value = LoginUiState.Error(Throwable("请输入手机号和密码"))
-            "请输入手机号和密码".shortToast()
+            Toast.show("请输入手机号和密码")
             return
         }
         val params = LoginParams(phone = phone, password = pwd)
@@ -27,17 +27,17 @@ class LoginAccountViewModel : ViewModel() {
             try {
                 val res = HomeApi.login(params)
                 if (res.status != 0) {
-                    "请求失败 ${res.message}".shortToast()
+                    "请求失败 ${res.message}"
                     uiState.value = LoginUiState.Error(Throwable(res.message))
                     return@launch
                 }
-                "请求成功".shortToast()
+                Toast.show("请求成功")
                 UserUtil.saveSession(res.data)
                 // 成功跳转首页
                 uiState.value = LoginUiState.Success
             } catch (e: Exception) {
                 uiState.value = LoginUiState.Error(e)
-                "${e.message}".shortToast()
+                Toast.show("${e.message}")
             }
         }
     }

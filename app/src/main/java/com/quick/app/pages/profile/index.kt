@@ -35,7 +35,7 @@ import coil3.compose.AsyncImage
 import com.quick.app.PreviewContent
 import com.quick.app.R
 import com.quick.app.components.RuTopAppBar
-import com.quick.app.extension.shortToast
+import com.quick.app.components.toast.Toast
 import com.quick.app.models.User
 import com.quick.app.pages.me.MeViewModel
 import com.quick.app.pages.profile.comps.SettingInput
@@ -156,7 +156,7 @@ fun ProfileScreen() {
                 onClick = {
                     vm.logout()
                     navController.popBackStack()
-                    "退出登录".shortToast()
+                    Toast.show("退出登录")
                 },
                 modifier = Modifier
                     .padding(vertical = 24.dp)

@@ -7,7 +7,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.quick.app.api.HomeApi
-import com.quick.app.extension.shortToast
+import com.quick.app.components.toast.Toast
 import com.quick.app.models.AdModel
 import com.quick.app.models.ProductModel
 import kotlinx.coroutines.launch
@@ -38,7 +38,7 @@ class HomeViewModel(savedStateHandle: SavedStateHandle) : ViewModel() {
                     ads.value = AdModel.fromJson(res.data)
                 }
             } catch (e: Exception) {
-                "ad 数据请求失败".shortToast()
+                Toast.show("ad 数据请求失败")
             }
         }
     }

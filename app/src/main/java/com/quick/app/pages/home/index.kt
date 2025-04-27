@@ -21,7 +21,6 @@ import com.quick.app.PreviewContent
 import com.quick.app.components.ErrorTips
 import com.quick.app.components.RuPullToRefresh
 import com.quick.app.components.loading.Loading
-import com.quick.app.extension.shortToast
 import com.quick.app.models.AdModel
 import com.quick.app.models.ProductModel
 import com.quick.app.pages.home.comps.AdsList
@@ -54,7 +53,6 @@ fun HomeScreen(vm: HomeViewModel = viewModel()) {
                 is HomeListUiState.Success -> {
                     RuPullToRefresh(onRefreshApi = {
                         delay(2000)
-                        "刷新成功".shortToast()
                     }) {
                         HomeList(datum, ads)
                     }
@@ -81,7 +79,7 @@ fun HomeList(datum: List<ProductModel>, ads: List<AdModel>) {
                 Log.d("homeViewModel", "${item.uri}")
                 if (item.uri?.contains("https") == true) {
                     navController.navigate(PageRoutes.Web.routeParam(item.uri))
-                } else "No Support ${item.uri}".shortToast()
+                } else "No Support ${item.uri}"
             }
         }
         items(datum.size, span = { GridItemSpan(2) }) { idx ->

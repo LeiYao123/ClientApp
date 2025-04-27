@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -25,6 +26,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.quick.app.components.svgicon.SvgIcon
 import com.quick.app.extension.leftBorder
@@ -33,8 +35,13 @@ import com.quick.app.ui.theme.RuTheme
 
 val shape = RoundedCornerShape(10.dp)
 
+
+sealed class IconType {
+    data class Path(val path: String) : IconType()
+    data class Slot(val slot: @Composable () -> Unit) : IconType()
+}
 @Composable
-fun CustomTextField(
+fun RuInput(
     value: String,
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -43,8 +50,8 @@ fun CustomTextField(
     disabled: Boolean = false,
     singleLine: Boolean = true,
     placeholder: String = "",
-    leftIcon: String? = null,
-    rightIcon: String? = null,
+    leftIcon: IconType? = null,
+    rightIcon: IconType? = null,
     leftAddon: @Composable ((disabled: Boolean, color: Color) -> Unit)? = null,
     rightAddon: @Composable ((disabled: Boolean, color: Color) -> Unit)? = null,
     imeAction: ImeAction = ImeAction.Done,
@@ -54,6 +61,7 @@ fun CustomTextField(
     //•	KeyboardType.Password：隐藏字符键盘
     keyboardType: KeyboardType = KeyboardType.Text,
     onImeAction: () -> Unit = {},
+    contentAlignment: Alignment = Alignment.CenterStart,
 ) {
     val rColor = RuTheme.colors
     val typo = RuTheme.typo
@@ -73,7 +81,6 @@ fun CustomTextField(
         value = value,
         onValueChange = onValueChange,
         enabled = !disabled,
-        textStyle = RuTheme.typo.paragraphS.copy(color = cfgColor.textColor),
         singleLine = singleLine,
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = imeAction,
@@ -82,9 +89,18 @@ fun CustomTextField(
         keyboardActions = KeyboardActions(onDone = { onImeAction() }),
         cursorBrush = SolidColor(if (isError) Color.Red else Color.Black),
         interactionSource = interactionSource,
+        textStyle = RuTheme.typo.paragraphS.copy(
+            color = cfgColor.textColor,
+            textAlign = when (contentAlignment) {
+                Alignment.Center -> TextAlign.Center
+                Alignment.CenterEnd -> TextAlign.End
+                else -> TextAlign.Start
+            }
+        ),
         decorationBox = { innerTextField ->
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(cfgColor.bgColor, shape)
@@ -104,14 +120,15 @@ fun CustomTextField(
                     ) { leftAddon(disabled, cfgColor.textColor) }
                 }
 
-                if (leftIcon != null) SvgIcon(leftIcon, size = 20, tint = cfgColor.iconColor)
-                if (leftIcon != null && leftAddon == null) Spacer(modifier.width(cfgSize.gap))
+                if (leftIcon != null) RenderIcon(leftIcon, cfgColor)
+                if (leftIcon != null && leftAddon == null) Spacer(Modifier.width(cfgSize.gap))
 
                 Box(
                     modifier = Modifier
                         .let { if (leftAddon != null) it.padding(start = cfgSize.pl) else it }
                         .let { if (rightAddon != null) it.padding(end = cfgSize.pr) else it }
-                        .weight(1f)
+                        .weight(1f),
+                    contentAlignment = contentAlignment
                 ) {
                     if (value.isEmpty()) {
                         Text(placeholder, style = typo.paragraphS, color = cfgColor.placeholder)
@@ -119,8 +136,8 @@ fun CustomTextField(
                     innerTextField()
                 }
 
-                if (rightIcon != null && rightAddon == null) Spacer(modifier.width(cfgSize.gap))
-                if (rightIcon != null) SvgIcon(rightIcon, size = 20, tint = cfgColor.iconColor)
+                if (rightIcon != null && rightAddon == null) Spacer(Modifier.width(cfgSize.gap))
+                if (rightIcon != null) RenderIcon(rightIcon, cfgColor)
 
                 if (rightAddon != null) {
                     Box(
@@ -133,4 +150,12 @@ fun CustomTextField(
             }
         }
     )
+}
+
+@Composable
+fun RenderIcon(icon: IconType, cfgColor: InputColorModel) {
+    when (icon) {
+        is IconType.Slot -> icon.slot()
+        is IconType.Path -> SvgIcon(icon.path, size = 20, tint = cfgColor.iconColor)
+    }
 }
