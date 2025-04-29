@@ -27,6 +27,7 @@ import com.quick.app.components.dialog.RuDialogDemo
 import com.quick.app.components.drawer.DrawerDemo
 import com.quick.app.components.input.InputRouteDemo
 import com.quick.app.components.popover.PopoverDemoRoute
+import com.quick.app.components.slider.SliderDemoRoute
 import com.quick.app.components.tab.RuTabDemo
 import com.quick.app.components.toast.ToastDemo
 import com.quick.app.ui.theme.RuTheme
@@ -44,7 +45,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "popover"
+                startDestination = "slider"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -57,6 +58,7 @@ fun ComponentDemoRoute() {
                 composable("dialog") { RuDialogDemo() }
                 composable("input") { InputRouteDemo() }
                 composable("popover") { PopoverDemoRoute() }
+                composable("slider") { SliderDemoRoute() }
             }
         }
     }
@@ -81,5 +83,6 @@ fun DemoIndex(navController: NavHostController) {
         RuButton("dialog demo", onClick = { navController.navigate("dialog") })
         RuButton("input demo", onClick = { navController.navigate("input") })
         RuButton("popover demo", onClick = { navController.navigate("popover") })
+        RuButton("slider demo", onClick = { navController.navigate("slider") })
     }
 }
