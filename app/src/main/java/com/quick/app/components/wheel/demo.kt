@@ -45,6 +45,7 @@ fun WheelDemoRoute() {
             state = state,
             // Specified item count.
             itemHeight = 60.dp,
+            unfocusedCount = 1,
             count = 50,
             focus = {
                 // Custom divider.
