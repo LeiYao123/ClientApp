@@ -2,6 +2,8 @@ package com.quick.app.pages.demo
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -23,6 +25,7 @@ import com.quick.app.components.button.RuButton
 import com.quick.app.components.button.RuButtonDemo
 import com.quick.app.components.buttonGroup.RuButtonGroupDemo
 import com.quick.app.components.checkbox.RuCheckboxDemo
+import com.quick.app.components.courierStatus.CourierStatusDemoRoute
 import com.quick.app.components.dialog.RuDialogDemo
 import com.quick.app.components.drawer.DrawerDemo
 import com.quick.app.components.input.InputRouteDemo
@@ -48,7 +51,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "profile_indicator"
+                startDestination = "demo_index"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -65,35 +68,42 @@ fun ComponentDemoRoute() {
                 composable("wheel") { WheelDemoRoute() }
                 composable("order_status") { OrderStatusDemoRoute() }
                 composable("profile_indicator") { ProfileIndicatorDemoRoute() }
+                composable("courier_status") { CourierStatusDemoRoute() }
             }
         }
     }
 }
 
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun DemoIndex(navController: NavHostController) {
-    Column(
-        modifier = Modifier.verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
+    Column {
         Text("component demo", color = RuTheme.colors.primaryBase, style = RuTheme.typo.titleH3)
         Spacer(modifier = Modifier.height(16.dp))
-        RuButton("button demo", onClick = { navController.navigate("button") })
-        RuButton("checkbox demo", onClick = { navController.navigate("checkbox") })
-        RuButton("badge demo", onClick = { navController.navigate("badge") })
-        RuButton("button group demo", onClick = { navController.navigate("button_group") })
-        RuButton("tab demo", onClick = { navController.navigate("tab") })
-        RuButton("toast demo", onClick = { navController.navigate("toast") })
-        RuButton("drawer demo", onClick = { navController.navigate("drawer") })
-        RuButton("dialog demo", onClick = { navController.navigate("dialog") })
-        RuButton("input demo", onClick = { navController.navigate("input") })
-        RuButton("popover demo", onClick = { navController.navigate("popover") })
-        RuButton("slider demo", onClick = { navController.navigate("slider") })
-        RuButton("wheel demo", onClick = { navController.navigate("wheel") })
-        RuButton("order status demo", onClick = { navController.navigate("order_status") })
-        RuButton(
-            "profile indicator demo",
-            onClick = { navController.navigate("profile_indicator") })
+
+        FlowRow(
+            modifier = Modifier.verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.spacedBy(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            RuButton("button demo", onClick = { navController.navigate("button") })
+            RuButton("checkbox demo", onClick = { navController.navigate("checkbox") })
+            RuButton("badge demo", onClick = { navController.navigate("badge") })
+            RuButton("button group demo", onClick = { navController.navigate("button_group") })
+            RuButton("tab demo", onClick = { navController.navigate("tab") })
+            RuButton("toast demo", onClick = { navController.navigate("toast") })
+            RuButton("drawer demo", onClick = { navController.navigate("drawer") })
+            RuButton("dialog demo", onClick = { navController.navigate("dialog") })
+            RuButton("input demo", onClick = { navController.navigate("input") })
+            RuButton("popover demo", onClick = { navController.navigate("popover") })
+            RuButton("slider demo", onClick = { navController.navigate("slider") })
+            RuButton("wheel demo", onClick = { navController.navigate("wheel") })
+            RuButton("order status demo", onClick = { navController.navigate("order_status") })
+            RuButton("courier status demo", onClick = { navController.navigate("courier_status") })
+            RuButton(
+                "profile indicator demo",
+                onClick = { navController.navigate("profile_indicator") })
+        }
     }
 }
