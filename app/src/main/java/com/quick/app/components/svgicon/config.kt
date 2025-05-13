@@ -21,5 +21,5 @@ object SvgPath {
     const val search_2_line = "icons/search-2-line.svg"
     const val select_box_circle_fill = "icons/select-box-circle-fill.svg"
     const val subtract_line = "icons/subtract-line.svg"
-
+    const val user_line = "icons/user-line.svg"
 }

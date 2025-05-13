@@ -28,6 +28,7 @@ import com.quick.app.components.drawer.DrawerDemo
 import com.quick.app.components.input.InputRouteDemo
 import com.quick.app.components.orderStatus.OrderStatusDemoRoute
 import com.quick.app.components.popover.PopoverDemoRoute
+import com.quick.app.components.profileIndicator.ProfileIndicatorDemoRoute
 import com.quick.app.components.slider.SliderDemoRoute
 import com.quick.app.components.tab.RuTabDemo
 import com.quick.app.components.toast.ToastDemo
@@ -47,7 +48,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "order_status"
+                startDestination = "profile_indicator"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -63,6 +64,7 @@ fun ComponentDemoRoute() {
                 composable("slider") { SliderDemoRoute() }
                 composable("wheel") { WheelDemoRoute() }
                 composable("order_status") { OrderStatusDemoRoute() }
+                composable("profile_indicator") { ProfileIndicatorDemoRoute() }
             }
         }
     }
@@ -90,5 +92,8 @@ fun DemoIndex(navController: NavHostController) {
         RuButton("slider demo", onClick = { navController.navigate("slider") })
         RuButton("wheel demo", onClick = { navController.navigate("wheel") })
         RuButton("order status demo", onClick = { navController.navigate("order_status") })
+        RuButton(
+            "profile indicator demo",
+            onClick = { navController.navigate("profile_indicator") })
     }
 }
