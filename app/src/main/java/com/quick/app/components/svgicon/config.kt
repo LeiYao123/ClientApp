@@ -12,6 +12,7 @@ object SvgPath {
     const val car_line = "icons/car-line.svg"
     const val check_line = "icons/check-line.svg"
     const val close_line = "icons/close-line.svg"
+    const val delete_back_2_line = "icons/delete-back-2-line.svg"
     const val error_warning_fill = "icons/error-warning-fill.svg"
     const val home_4_line = "icons/home-4-line.svg"
     const val information_fill = "icons/information-fill.svg"

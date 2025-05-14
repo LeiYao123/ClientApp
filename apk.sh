@@ -13,11 +13,6 @@ TEMPLATE_FILE="template/env.tpl"
 OUTPUT_FILE="app/src/main/java/com/quick/app/config/env.kt"
 CREATED_AT=$(date "+%Y-%m-%d %H:%M:%S")
 
-#VERSION_CODE=$(./gradlew properties | grep "versionCode:" | awk '{print $2}')
-#VERSION_NAME=$(./gradlew properties | grep "versionName:" | awk '{print $2}')
-#
-#echo "VERSION_CODE: $VERSION_CODE"
-#echo "VERSION_NAME: $VERSION_NAME"
 
 VERSION_CODE=$(grep 'versionCode' app/build.gradle.kts | sed -E 's/.*versionCode = ([0-9]+).*/\1/')
 VERSION_NAME=$(grep 'versionName' app/build.gradle.kts | sed -E 's/.*versionName = "(.*)".*/\1/')

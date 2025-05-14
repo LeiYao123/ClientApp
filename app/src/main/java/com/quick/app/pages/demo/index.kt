@@ -33,6 +33,7 @@ import com.quick.app.components.orderStatus.OrderStatusDemoRoute
 import com.quick.app.components.popover.PopoverDemoRoute
 import com.quick.app.components.profileIndicator.ProfileIndicatorDemoRoute
 import com.quick.app.components.slider.SliderDemoRoute
+import com.quick.app.components.slimeNumberPad.SlimeNumberPadDemoRoute
 import com.quick.app.components.tab.RuTabDemo
 import com.quick.app.components.toast.ToastDemo
 import com.quick.app.components.wheel.WheelDemoRoute
@@ -41,7 +42,6 @@ import com.quick.app.ui.theme.RuTheme
 @Composable
 fun ComponentDemoRoute() {
     Scaffold { pd ->
-        println("$pd")
         Surface(
             modifier = Modifier
                 .padding(pd)
@@ -51,7 +51,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "demo_index"
+                startDestination = "slime_number_pad"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -69,6 +69,7 @@ fun ComponentDemoRoute() {
                 composable("order_status") { OrderStatusDemoRoute() }
                 composable("profile_indicator") { ProfileIndicatorDemoRoute() }
                 composable("courier_status") { CourierStatusDemoRoute() }
+                composable("slime_number_pad") { SlimeNumberPadDemoRoute() }
             }
         }
     }
@@ -101,6 +102,9 @@ fun DemoIndex(navController: NavHostController) {
             RuButton("wheel demo", onClick = { navController.navigate("wheel") })
             RuButton("order status demo", onClick = { navController.navigate("order_status") })
             RuButton("courier status demo", onClick = { navController.navigate("courier_status") })
+            RuButton(
+                "slime number pad demo",
+                onClick = { navController.navigate("slime_number_pad") })
             RuButton(
                 "profile indicator demo",
                 onClick = { navController.navigate("profile_indicator") })
