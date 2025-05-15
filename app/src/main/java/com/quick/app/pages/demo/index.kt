@@ -35,6 +35,7 @@ import com.quick.app.components.profileIndicator.ProfileIndicatorDemoRoute
 import com.quick.app.components.slider.SliderDemoRoute
 import com.quick.app.components.slimeNumberPad.SlimeNumberPadDemoRoute
 import com.quick.app.components.tab.RuTabDemo
+import com.quick.app.components.timelineActivity.TimelineActivityDemoRoute
 import com.quick.app.components.toast.ToastDemo
 import com.quick.app.components.wheel.WheelDemoRoute
 import com.quick.app.ui.theme.RuTheme
@@ -51,7 +52,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "slime_number_pad"
+                startDestination = "timeline_activity"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -70,6 +71,7 @@ fun ComponentDemoRoute() {
                 composable("profile_indicator") { ProfileIndicatorDemoRoute() }
                 composable("courier_status") { CourierStatusDemoRoute() }
                 composable("slime_number_pad") { SlimeNumberPadDemoRoute() }
+                composable("timeline_activity") { TimelineActivityDemoRoute() }
             }
         }
     }
@@ -102,6 +104,9 @@ fun DemoIndex(navController: NavHostController) {
             RuButton("wheel demo", onClick = { navController.navigate("wheel") })
             RuButton("order status demo", onClick = { navController.navigate("order_status") })
             RuButton("courier status demo", onClick = { navController.navigate("courier_status") })
+            RuButton(
+                "timeline activity demo",
+                onClick = { navController.navigate("timeline_activity") })
             RuButton(
                 "slime number pad demo",
                 onClick = { navController.navigate("slime_number_pad") })

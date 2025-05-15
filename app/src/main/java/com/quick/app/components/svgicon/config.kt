@@ -14,6 +14,7 @@ object SvgPath {
     const val close_line = "icons/close-line.svg"
     const val delete_back_2_line = "icons/delete-back-2-line.svg"
     const val error_warning_fill = "icons/error-warning-fill.svg"
+    const val file_list_3_line = "icons/file-list-3-line.svg"
     const val home_4_line = "icons/home-4-line.svg"
     const val information_fill = "icons/information-fill.svg"
     const val loader_3_line = "icons/loader-3-line.svg"
@@ -27,5 +28,4 @@ object SvgPath {
     const val store_2_line = "icons/store-2-line.svg"
     const val subtract_line = "icons/subtract-line.svg"
     const val user_line = "icons/user-line.svg"
-
 }
