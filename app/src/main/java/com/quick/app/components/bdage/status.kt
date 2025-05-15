@@ -37,7 +37,7 @@ fun RuStatusBadge(
 ) {
     val rColor = RuTheme.colors
     val color = getStatusBadgeColor(status, style, rColor)
-    val shape = RoundedCornerShape(RuTheme.radius.radius6)
+    val shape = RoundedCornerShape(6.dp)
 
     val pl = if (icon != null) 4 else 8
 

@@ -320,8 +320,8 @@ object RuSliderDefaults {
                 modifier = Modifier
                     .layoutId(CustomSliderComponents.LABEL)
                     .height(20.dp)
-                    .clip(RoundedCornerShape(RuTheme.radius.radius4))
-                    .background(bgColor, RoundedCornerShape(RuTheme.radius.radius4)),
+                    .clip(RoundedCornerShape(4.dp))
+                    .background(bgColor, RoundedCornerShape(4.dp)),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

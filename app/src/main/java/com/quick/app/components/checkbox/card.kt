@@ -43,12 +43,12 @@ fun RuCheckBoxCard(
                 else onChange(!checked)
             }
         }
-        .clip(RoundedCornerShape(RuTheme.radius.radius12))
+        .clip(RoundedCornerShape(12.dp))
         .background(rColor.bgWhite)
         .border(
             width = 1.dp,
             color = if (checked && enabled) rColor.primaryBase else rColor.strokeSoft,
-            shape = RoundedCornerShape(RuTheme.radius.radius12)
+            shape = RoundedCornerShape(12.dp)
         )
         .padding(16.dp)
 

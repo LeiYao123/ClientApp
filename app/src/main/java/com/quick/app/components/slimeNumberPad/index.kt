@@ -85,7 +85,7 @@ fun SlimeNumberPadItem(padItem: NumberPadModel, modifier: Modifier) {
             .border(
                 1.dp,
                 color = RuTheme.colors.strokeSoft,
-                shape = RoundedCornerShape(RuTheme.radius.radius10)
+                shape = RoundedCornerShape(10.dp)
             ),
         contentAlignment = Alignment.Center
     ) {

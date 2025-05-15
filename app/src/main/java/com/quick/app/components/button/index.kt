@@ -30,7 +30,7 @@ import com.quick.app.components.svgicon.SvgIcon
 import com.quick.app.ui.theme.RuTheme
 
 
-val shape = RoundedCornerShape(size = RuTheme.radius.radius10)
+val shape = RoundedCornerShape(size = 10.dp)
 
 @Composable
 fun RuButton(

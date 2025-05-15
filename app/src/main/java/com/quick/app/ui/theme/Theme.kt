@@ -32,8 +32,6 @@ object RuTheme {
         get() = LocalCustomColors.current
     val typo: RuTypography
         get() = RuTypography()
-    val radius: RuRadius
-        get() = RuRadius()
 }
 
 

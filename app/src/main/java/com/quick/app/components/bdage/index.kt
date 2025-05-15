@@ -68,11 +68,11 @@ fun RuBadge(
                 if (isNumber) it.size(badgeSize.row)
                 else it.height(badgeSize.row)
             }
-            .clip(RoundedCornerShape(RuTheme.radius.radiusFull))
+            .clip(RoundedCornerShape(50.dp))
             .background(color.bg)
             .let {
                 if (style == RuBadgeStyle.STROKE)
-                    it.border(1.dp, color.text, RoundedCornerShape(RuTheme.radius.radiusFull))
+                    it.border(1.dp, color.text, RoundedCornerShape(50.dp))
                 else it
             }
             .let {

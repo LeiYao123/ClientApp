@@ -76,7 +76,7 @@ fun RuCompactButton(
                 else it
             }
             .size(btnSize)
-            .clip(RoundedCornerShape(RuTheme.radius.radius6))
+            .clip(RoundedCornerShape(6.dp))
             .background(backgroundColor)
             .let {
                 if (!enabled) it
@@ -84,7 +84,7 @@ fun RuCompactButton(
                     if (style == RuCompactStyle.STROKE) it.border(
                         width = 1.dp,
                         color = rColor.strokeSoft.copy(if (isPressed) 0f else 1f),
-                        shape = RoundedCornerShape(RuTheme.radius.radius6)
+                        shape = RoundedCornerShape(6.dp)
                     )
                     else it
                 }

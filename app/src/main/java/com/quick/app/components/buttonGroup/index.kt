@@ -29,7 +29,7 @@ fun RuButtonGroup(
     options: List<ButtonItemModel>,
 ) {
     val rColor = RuTheme.colors
-    val shape = RoundedCornerShape(RuTheme.radius.radius8)
+    val shape = RoundedCornerShape(8.dp)
     Row(
         modifier = modifier
             .border(1.dp, rColor.strokeSoft, shape)

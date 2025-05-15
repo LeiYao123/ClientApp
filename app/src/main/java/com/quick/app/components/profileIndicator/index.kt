@@ -69,7 +69,7 @@ fun ProfileIndicator(
                 )
                 .border(
                     width = 1.dp,
-                    shape = RoundedCornerShape(RuTheme.radius.radius8),
+                    shape = RoundedCornerShape(8.dp),
                     color = RuTheme.colors.strokeSoft
                 )
                 .padding(horizontal = 8.dp),
@@ -149,7 +149,7 @@ fun MinimalProfileNone(content: @Composable () -> Unit) {
             )
             .border(
                 width = 1.dp,
-                shape = RoundedCornerShape(RuTheme.radius.radius8),
+                shape = RoundedCornerShape(8.dp),
                 color = RuTheme.colors.strokeSoft
             )
             .padding(horizontal = 8.dp),
@@ -180,7 +180,7 @@ fun MinimalProfile(stage: ProfileStage = ProfileStage.None, content: @Composable
                 )
                 .border(
                     width = 2.dp,
-                    shape = RoundedCornerShape(RuTheme.radius.radius8),
+                    shape = RoundedCornerShape(8.dp),
                     color = RuTheme.colors.strokeSoft
                 )
                 .padding(horizontal = 8.dp),
@@ -196,7 +196,7 @@ fun MinimalProfile(stage: ProfileStage = ProfileStage.None, content: @Composable
                     .border(
                         width = 2.dp,
                         color = PaletteTokens.green_500,
-                        shape = RoundedCornerShape(RuTheme.radius.radius8)
+                        shape = RoundedCornerShape(8.dp)
                     )
             )
 

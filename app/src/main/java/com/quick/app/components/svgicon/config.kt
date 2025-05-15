@@ -27,5 +27,6 @@ object SvgPath {
     const val select_box_circle_line = "icons/select-box-circle-line.svg"
     const val store_2_line = "icons/store-2-line.svg"
     const val subtract_line = "icons/subtract-line.svg"
+    const val time_fill = "icons/time-fill.svg"
     const val user_line = "icons/user-line.svg"
 }

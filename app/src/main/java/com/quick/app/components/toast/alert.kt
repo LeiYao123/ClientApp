@@ -33,7 +33,7 @@ fun Alert(
     modifier: Modifier = Modifier,
 ) {
     val rColor = RuTheme.colors
-    val shape = RoundedCornerShape(size = RuTheme.radius.radius8)
+    val shape = RoundedCornerShape(8.dp)
     val cfg = getToastItem(status, style, rColor)
     val cfgSize = getToastItemSize(size)
 
