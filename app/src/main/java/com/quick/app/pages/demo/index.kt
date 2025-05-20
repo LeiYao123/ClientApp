@@ -38,6 +38,7 @@ import com.quick.app.components.slimeNumberPad.SlimeNumberPadDemoRoute
 import com.quick.app.components.tab.RuTabDemo
 import com.quick.app.components.timelineActivity.TimelineActivityDemoRoute
 import com.quick.app.components.toast.ToastDemo
+import com.quick.app.components.weekDayPicker.WeekDayPickerDemoRoute
 import com.quick.app.components.wheel.WheelDemoRoute
 import com.quick.app.ui.theme.RuTheme
 
@@ -53,7 +54,7 @@ fun ComponentDemoRoute() {
             val navController = rememberNavController()
             NavHost(
                 navController = navController,
-                startDestination = "menu_card"
+                startDestination = "week_day_picker"
             ) {
                 composable("demo_index") { DemoIndex(navController) }
                 composable("button") { RuButtonDemo() }
@@ -74,6 +75,7 @@ fun ComponentDemoRoute() {
                 composable("slime_number_pad") { SlimeNumberPadDemoRoute() }
                 composable("timeline_activity") { TimelineActivityDemoRoute() }
                 composable("menu_card") { MenuCardDemoRoute() }
+                composable("week_day_picker") { WeekDayPickerDemoRoute() }
             }
         }
     }
@@ -116,6 +118,9 @@ fun DemoIndex(navController: NavHostController) {
             RuButton(
                 "profile indicator demo",
                 onClick = { navController.navigate("profile_indicator") })
+            RuButton(
+                "week day picker demo",
+                onClick = { navController.navigate("week_day_picker") })
         }
     }
 }
